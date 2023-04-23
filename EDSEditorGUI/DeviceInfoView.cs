@@ -98,20 +98,15 @@ namespace ODEditor
         }
 
 
-        void InputControls_OnChange(object sender, EventArgs e)
-        {
-            // Do something to indicate the form is dirty like:
-            button_update_devfile_info.BackColor = System.Drawing.Color.Red;
-        }
 
         void AddOnChangeHandlerToInputControls(ControlCollection ctrl)
         {
             foreach (Control subctrl in ctrl)
             {
-                //if (subctrl is TextBox)
-                //    ((TextBox)subctrl).TextChanged +=
-                //        new EventHandler(InputControls_OnChange);
-                //else 
+                if (subctrl is TextBox)
+                    ((TextBox)subctrl).TextChanged +=
+                        new EventHandler(InputControls_OnChange);
+                else
                 if (subctrl is CheckBox)
                     ((CheckBox)subctrl).CheckedChanged +=
                         new EventHandler(InputControls_OnChange);
@@ -123,9 +118,7 @@ namespace ODEditor
             }
     }
 
-
-
-        private void button_update_devfile_info_Click(object sender, EventArgs e)
+        private void update_devfile_info()
         {
             if (eds == null)
                 return;
@@ -172,14 +165,18 @@ namespace ODEditor
                 eds.dc.LSS_SerialNumber = Convert.ToUInt32(textBox_lssserial.Text);
 
                 eds.Dirty = true;
-                button_update_devfile_info.BackColor = SystemColors.ButtonFace;
-                button_update_devfile_info.UseVisualStyleBackColor = true;
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Update failed, reason :-\n" + ex.ToString());
             }
+        }
+
+        void InputControls_OnChange(object sender, EventArgs e)
+        {
+            // Changes detected: Update the device info
+            update_devfile_info();
         }
     }
 }

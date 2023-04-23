@@ -532,7 +532,9 @@ namespace ODEditor
                 {
                     saveAsToolStripMenuItem_Click(sender, e);
                 }
+                dv.eds.Dirty = false;
             }
+            
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -632,7 +634,7 @@ namespace ODEditor
                     }
                     break;
             }
-
+            
             dv.dispatch_updateOD();
 
         }

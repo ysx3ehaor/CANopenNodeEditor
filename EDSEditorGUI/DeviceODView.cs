@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using libEDSsharp;
+
 namespace ODEditor
 {
 
@@ -128,16 +129,40 @@ namespace ODEditor
 
         private bool Checkdirty()
         {
+            var result = false;
+
             if (button_saveChanges.BackColor == Color.Red)
             {
-                if (lastSelectedObject != null && MessageBox.Show(String.Format("Unsaved changes on Index 0x{0:X4}/{1:X2}.\nDo you wish to switch object and loose your changes?", lastSelectedObject.Index, lastSelectedObject.Subindex), "Unsaved changes", MessageBoxButtons.YesNo) == DialogResult.No)
+
+                var answer = checkBox_autosave.Checked 
+                           ? DialogResult.No 
+                           : MessageBox.Show(String.Format("Unsaved changes on Index 0x{0:X4}/{1:X2}.\nDo you wish to switch object and loose your changes?\n\nYes = Lose changes\nNo = Save\nCancel = Go back and stay on the object", lastSelectedObject.Index, lastSelectedObject.Subindex), "Unsaved changes", MessageBoxButtons.YesNoCancel); ;
+
+
+                switch (answer)
                 {
-                    return true;
+                    case DialogResult.Cancel:
+                    default:
+                        result = lastSelectedObject != null;
+                        break;
+
+                    case DialogResult.Yes:
+                        result = false;
+                        break;
+
+                    case DialogResult.No:
+                        if (lastSelectedObject != null)
+                        {
+                            ObjectSave();
+                            result = false;
+                        }
+                        break;
                 }
+
                 button_saveChanges.BackColor = default;
             }
 
-            return false;
+            return result;
         }
 
         private void ComboBoxSet(ComboBox comboBox, string item)
@@ -411,7 +436,11 @@ namespace ODEditor
 
         private void Button_saveChanges_Click(object sender, EventArgs e)
         {
+            ObjectSave();
+        }
 
+        private void ObjectSave()
+        {
             ExporterV4 = ExporterTypeV4();
             if (ExporterOld != ExporterV4)
             {
@@ -606,7 +635,8 @@ namespace ODEditor
                         contextMenu_subObject_removeSubItemToolStripMenuItem.Enabled = od.Subindex > 0 && od.parent != null;
                         contextMenu_subObject_removeSubItemLeaveGapToolStripMenuItem.Enabled = parent.objecttype == ObjectType.RECORD && od.Subindex > 0 && od.parent != null;
 
-                        if (listView_subObjects.FocusedItem.Bounds.Contains(e.Location) == true)
+                        
+                        if (isClickOnItem(e.Location))
                         {
                             contextMenu_subObject.Show(Cursor.Position);
                         }
@@ -615,6 +645,24 @@ namespace ODEditor
                 selectedObject = od;
                 PopulateObject();
             }
+        }
+
+        private bool isClickOnItem(Point location)
+        {
+            if (listView_subObjects.FocusedItem != null)
+            {
+                return listView_subObjects.FocusedItem.Bounds.Contains(location);
+            }
+
+            foreach (ListViewItem item in listView_subObjects.Items)
+            {
+                if (item.Bounds.Contains(location))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private void ListView_subObjects_SelectedIndexChanged(object sender, EventArgs e)
