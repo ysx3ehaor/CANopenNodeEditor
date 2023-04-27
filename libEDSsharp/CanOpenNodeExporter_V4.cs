@@ -195,13 +195,13 @@ namespace libEDSsharp
 
             // data storage
             string dataPtr = "NULL";
+            ODStorage_t[group].Add($"{data.cType} x{varName}{data.cTypeArray};");
             if (data.cValue != null)
             {
-                ODStorage_t[group].Add($"{data.cType} x{varName}{data.cTypeArray};");
                 ODStorage[group].Add($".x{varName} = {data.cValue}");
-                dataPtr = $"&{odname}_{group}.x{varName}{data.cTypeArray0}";
             }
 
+            dataPtr = $"&{odname}_{group}.x{varName}{data.cTypeArray0}";
             // objects
             ODObjs_t.Add($"OD_obj_var_t o_{varName};");
             ODObjs.Add($"    .o_{varName} = {{");
@@ -346,12 +346,12 @@ namespace libEDSsharp
 
                 string subcName = Make_cname(sub.parameter_name);
                 string dataPtr = "NULL";
+                subODStorage_t.Add($"{data.cType} {subcName}{data.cTypeArray};");
                 if (data.cValue != null)
                 {
-                    subODStorage_t.Add($"{data.cType} {subcName}{data.cTypeArray};");
                     subODStorage.Add($".{subcName} = {data.cValue}");
-                    dataPtr = $"&{odname}_{group}.x{varName}.{subcName}{data.cTypeArray0}";
                 }
+                dataPtr = $"&{odname}_{group}.x{varName}.{subcName}{data.cTypeArray0}";
                 ODObjs.Add($"        {{");
                 ODObjs.Add($"            .dataOrig = {dataPtr},");
                 ODObjs.Add($"            .subIndex = {sub.Subindex},");

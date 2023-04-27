@@ -495,9 +495,9 @@ namespace ODEditor
             this.groupBox1.Controls.Add(this.comboBox_accessPDO);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox1.Location = new System.Drawing.Point(0, 328);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(853, 188);
             this.groupBox1.TabIndex = 33;
             this.groupBox1.TabStop = false;
@@ -672,6 +672,7 @@ namespace ODEditor
             // comboBox_objectType
             // 
             this.comboBox_objectType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_objectType.Enabled = false;
             this.comboBox_objectType.FormattingEnabled = true;
             this.comboBox_objectType.Location = new System.Drawing.Point(108, 18);
             this.comboBox_objectType.Name = "comboBox_objectType";
