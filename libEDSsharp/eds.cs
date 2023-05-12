@@ -25,6 +25,8 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Reflection;
 using CanOpenXSD_1_1;
+using System.Runtime.Remoting.Messaging;
+using System.Net.NetworkInformation;
 
 namespace libEDSsharp
 {
@@ -75,7 +77,7 @@ namespace libEDSsharp
         DEFSTRUCT=6,
         VAR = 7,
         ARRAY = 8,
-        REC = 9,
+        RECORD = 9,
     }
 
     public enum PDOMappingType
@@ -747,21 +749,21 @@ namespace libEDSsharp
         public UInt32 RevisionNumber;
 
         [EdsExport]
-        public bool BaudRate_10 = true;
+        public bool BaudRate_10 = false;
         [EdsExport]
-        public bool BaudRate_20 = true;
+        public bool BaudRate_20 = false;
         [EdsExport]
-        public bool BaudRate_50 = true;
+        public bool BaudRate_50 = false;
         [EdsExport]
-        public bool BaudRate_125 = true;
+        public bool BaudRate_125 = false;
         [EdsExport]
-        public bool BaudRate_250 = true;
+        public bool BaudRate_250 = false;
         [EdsExport]
-        public bool BaudRate_500 = true;
+        public bool BaudRate_500 = false;
         [EdsExport]
-        public bool BaudRate_800 = true;
+        public bool BaudRate_800 = false;
         [EdsExport]
-        public bool BaudRate_1000 = true;
+        public bool BaudRate_1000 = false;
 
         public bool BaudRate_auto = false;
 
@@ -811,7 +813,7 @@ namespace libEDSsharp
         public DeviceCommissioning()
         {
             infoheader = "CAN OPEN DeviceCommissioning";
-            edssection = "DeviceCommissioning";
+            edssection = "DeviceComissioning";  
         }
 
         public DeviceCommissioning(Dictionary<string, string> section) : this()
@@ -820,13 +822,13 @@ namespace libEDSsharp
         }
 
         [DcfExport]
-        public byte NodeId = 0;
+        public byte NodeID = 0;
 
         [DcfExport(maxlength = 246)]
         public string NodeName = ""; //Max 246 characters
 
         [DcfExport]
-        public UInt16 BaudRate;
+        public UInt16 Baudrate;
 
         [DcfExport]
         public UInt32 NetNumber;
@@ -1076,7 +1078,7 @@ namespace libEDSsharp
         public string actualvalue = "";
 
         [EdsExport]
-        public Byte ObjFlags = 0;
+        public UInt32 ObjFlags = 0;
 
         [EdsExport]
         public byte CompactSubObj = 0;
@@ -1251,27 +1253,18 @@ namespace libEDSsharp
             }
         }
 
+        /// <summary>
+        /// Provide a simple string representation of the object type. Returns the string of the ENUM ObjectType.VAR if objecttype is not enumed  
+        /// </summary>
+        /// <returns>string representation of object type </returns>
         public string ObjectTypeString()
         {
-            switch (objecttype)
-            {
-                default:
-                case ObjectType.VAR: return "VAR";
-                case ObjectType.ARRAY: return "ARRAY";
-                case ObjectType.REC: return "RECORD";
-            }
+                return Enum.IsDefined(typeof(ObjectType), objecttype) ? objecttype.ToString() : ObjectType.VAR.ToString();
         }
 
         public void ObjectTypeString(string objectType)
         {
-            switch (objectType)
-            {
-                default:
-                case "VAR": this.objecttype = ObjectType.VAR; break;
-                case "ARRAY": this.objecttype = ObjectType.ARRAY; break;
-                case "REC":
-                case "RECORD": this.objecttype = ObjectType.REC; break;
-            }
+            this.objecttype = Enum.IsDefined(typeof(ObjectType), objecttype) ? objecttype : ObjectType.VAR;
         }
 
         public AccessSDO AccessSDO()
@@ -1311,9 +1304,9 @@ namespace libEDSsharp
                     break;
                 case libEDSsharp.AccessSDO.rw:
                     if (accessPDO == libEDSsharp.AccessPDO.r)
-                        accesstype = EDSsharp.AccessType.rwr;
-                    else if (accessPDO == libEDSsharp.AccessPDO.t)
                         accesstype = EDSsharp.AccessType.rww;
+                    else if (accessPDO == libEDSsharp.AccessPDO.t)
+                        accesstype = EDSsharp.AccessType.rwr;
                     else
                         accesstype = EDSsharp.AccessType.rw;
                     break;
@@ -1326,9 +1319,9 @@ namespace libEDSsharp
             if (accType == EDSsharp.AccessType.UNKNOWN && parent != null && parent.objecttype == ObjectType.ARRAY)
                 accType = parent.accesstype;
 
-            if (PDOtype == PDOMappingType.RPDO || accType == EDSsharp.AccessType.rwr)
+            if (PDOtype == PDOMappingType.RPDO || accType == EDSsharp.AccessType.rww)
                 return libEDSsharp.AccessPDO.r;
-            else if (PDOtype == PDOMappingType.TPDO || accType == EDSsharp.AccessType.rww)
+            else if (PDOtype == PDOMappingType.TPDO || accType == EDSsharp.AccessType.rwr)
                 return libEDSsharp.AccessPDO.t;
             if (PDOtype == PDOMappingType.optional || PDOtype == PDOMappingType.@default)
                 return libEDSsharp.AccessPDO.tr;
@@ -1365,10 +1358,23 @@ namespace libEDSsharp
 
             if (baseObject.objecttype == ObjectType.VAR)
                 return null;
+            
+            ODentry newOd;
+
+            if ((baseObject.Nosubindexes == 0) && ((baseObject.objecttype == ObjectType.ARRAY) || (baseObject.objecttype == ObjectType.RECORD))) {
+                baseObject.subobjects.Add(0, new ODentry
+                {
+                    parent = baseObject,
+                    parameter_name = "Highest sub-index supported",
+                    accesstype = EDSsharp.AccessType.ro,
+                    objecttype = ObjectType.VAR,
+                    datatype = DataType.UNSIGNED8,
+                    defaultvalue = "0x01"
+                });
+            }
 
             ODentry lastSubOd = baseObject.subobjects.Values.Last();
             ODentry originalOd = null;
-            ODentry newOd;
             UInt16 maxSubIndex = 1;
             UInt16 lastSubIndex = 1;
 
@@ -1425,7 +1431,7 @@ namespace libEDSsharp
         /// <returns>true on successfull removal</returns>
         public bool RemoveSubEntry(bool renumber)
         {
-            if (parent != null && (parent.objecttype == ObjectType.ARRAY || parent.objecttype == ObjectType.REC))
+            if (parent != null && (parent.objecttype == ObjectType.ARRAY || parent.objecttype == ObjectType.RECORD))
             {
                 UInt16 maxSubIndex = EDSsharp.ConvertToUInt16(parent.subobjects[0].defaultvalue);
                 UInt16 lastSubIndex = parent.subobjects.Values.Last().Subindex;
@@ -1518,7 +1524,7 @@ namespace libEDSsharp
                 writer.WriteLine(string.Format("SubNumber=0x{0:X}", Nosubindexes));
             }
 
-            if (objecttype == ObjectType.REC)
+            if (objecttype == ObjectType.RECORD)
             {
                 writer.WriteLine(string.Format("SubNumber=0x{0:X}", Nosubindexes));
             }
@@ -1528,7 +1534,7 @@ namespace libEDSsharp
                 DataType dt = datatype;
                 if (dt == DataType.UNKNOWN && this.parent != null)
                     dt = parent.datatype;
-                writer.WriteLine(string.Format("DataType=0x{0:X4}", (int)dt));
+                    writer.WriteLine(string.Format("DataType=0x{0:X4}", (int)dt));
                 writer.WriteLine(string.Format("AccessType={0}", accesstype.ToString()));
 
 
@@ -1699,12 +1705,13 @@ namespace libEDSsharp
             return false;
         }
 
+
         public byte Getmaxsubindex()
         {
             //Although subindex 0 should contain the max subindex value
             //we don't enforce that anywhere in this lib, we should have a setter function
             //that sets it to the highest subobject found.
-            if (objecttype == ObjectType.ARRAY || objecttype == ObjectType.REC)
+            if (objecttype == ObjectType.ARRAY || objecttype == ObjectType.RECORD)
                 if (Containssubindex(0))
                 {
                     return EDSsharp.ConvertToByte(Getsubobjectdefaultvalue(0));
@@ -1897,7 +1904,7 @@ namespace libEDSsharp
 
         public Dictionary<UInt16, Module> modules;
 
-        public UInt16 NodeId = 0;
+        public UInt16 NodeID = 0;
 
         public delegate void DataDirty(bool dirty, EDSsharp sender);
         public event DataDirty OnDataDirty;
@@ -1944,12 +1951,12 @@ namespace libEDSsharp
             fi.ModificationDateTime = DateTime.Now;
 
             du.Dummy0001 = false;
-            du.Dummy0002 = true;
-            du.Dummy0003 = true;
-            du.Dummy0004 = true;
-            du.Dummy0005 = true;
-            du.Dummy0006 = true;
-            du.Dummy0007 = true;
+            du.Dummy0002 = false;
+            du.Dummy0003 = false;
+            du.Dummy0004 = false;
+            du.Dummy0005 = false;
+            du.Dummy0006 = false;
+            du.Dummy0007 = false;
 
             ODentry od = new ODentry();
 
@@ -2179,7 +2186,7 @@ namespace libEDSsharp
 
                 if(kvp.Value.ContainsKey("ObjFlags"))
                 {
-                    od.ObjFlags = Convert.ToByte(kvp.Value["ObjFlags"], Getbase(kvp.Value["ObjFlags"]));
+                    od.ObjFlags = Convert.ToUInt32(kvp.Value["ObjFlags"], Getbase(kvp.Value["ObjFlags"]));
                 }
                 else
                 {
@@ -2281,7 +2288,7 @@ namespace libEDSsharp
                 }
 
               
-                if(od.objecttype == ObjectType.REC|| od.objecttype == ObjectType.ARRAY || od.objecttype == ObjectType.DEFSTRUCT)
+                if(od.objecttype == ObjectType.RECORD|| od.objecttype == ObjectType.ARRAY || od.objecttype == ObjectType.DEFSTRUCT)
                 {
 
                     if (od.CompactSubObj != 0)
@@ -2404,9 +2411,14 @@ namespace libEDSsharp
 
                 //Only DCF not EDS files
                 dc = new DeviceCommissioning();
-                if(eds.ContainsKey("DeviceCommissioning"))
-                {
-                    dc.Parse(eds["DeviceCommissioning"],"DeviceCommissioning");
+                string strSection = "";
+                if (eds.ContainsKey("DeviceCommissioning"))     // wrong section name as defined in the DSP302, but right spelling (for compabiltiy to some tools)
+                    strSection = "DeviceCommissioning";
+                else if (eds.ContainsKey("DeviceComissioning")) // right section name as defined in the DSP302, (wrong spelling)
+                    strSection = "DeviceComissioning";
+
+                if (strSection != ""){
+                    dc.Parse(eds[strSection],"DeviceCommissioning");
                     edsfilename = fi.LastEDS;
                 }
                 
@@ -2534,7 +2546,7 @@ namespace libEDSsharp
                 {
                     //Fill in cob ID
                     //FIX ME i'm really sure this is not correct, what default values should be used???
-                    string cob = string.Format("0x180+$NODEID");
+                    string cob = string.Format("$NODEID + 0x180");
                     ODentry subod = new ODentry("COB-ID", index, DataType.UNSIGNED32, cob, AccessType.rw, PDOMappingType.no, ods[index]);
                     ods[index].subobjects.Add(0x05, subod);
 
@@ -2861,7 +2873,7 @@ namespace libEDSsharp
 
             int nobase = 10;
 
-            String pat = @"^0[xX][0-9a-fA-F]+";
+            String pat = @"^\s*0[xX][0-9a-fA-F]+\s*$";
 
             Regex r = new Regex(pat, RegexOptions.IgnoreCase);
             Match m = r.Match(defaultvalue);
@@ -2870,7 +2882,7 @@ namespace libEDSsharp
                 nobase = 16;
             }
 
-            pat = @"^0[0-9]+";
+            pat = @"^0[0-7]+";
             r = new Regex(pat, RegexOptions.IgnoreCase);
             m = r.Match(defaultvalue);
             if (m.Success)
@@ -2918,19 +2930,17 @@ namespace libEDSsharp
 
             try
             {
-                if (dc.NodeId == 0)
+                if (dc.NodeID == 0)
                 {
                     input = input.Replace("$NODEID", "");
                     input = input.Replace("+", "");
                     input = input.Replace(" ", "");
-                    return Convert.ToUInt32(input, Getbase(input));
+                    return Convert.ToUInt32(input.Trim(), Getbase(input));
                 }
 
-                input = input.Replace("$NODEID", String.Format("0x{0}", dc.NodeId));
-
-                string[] bits = input.Split('+');
-
-                if(bits.Length==1)
+                input = input.Replace("$NODEID", dc.NodeID.ToString()); // dc.NodeID is decimal
+                string[] bits = Array.ConvertAll(input.Split('+'), p => p.Trim()); // Split and Trim the value
+                if (bits.Length==1)
                 {
                     //nothing to parse here just return the value
                     return Convert.ToUInt32(input, Getbase(input));
@@ -2982,11 +2992,11 @@ namespace libEDSsharp
         public bool CreatePDO(bool rx,UInt16 index)
         {
             //check if we are creating an RX PDO it is a valid index
-            if (rx && (index < 0x1400 || index > 0x15ff))
+            if (rx && (index < 0x1400 || index >= 0x1600))
                 return false;
 
             //check if we are creating an PDO TX it is a valid index
-            if (!rx & (index < 0x1800 || index > 0x19ff))
+            if (!rx & (index < 0x1800 || index >= 0x1A00))
                 return false;
 
             //Check it does not already exist
@@ -3078,7 +3088,7 @@ mapped object  (subindex 1...8)
                 };
             }
 
-            od_comparam.objecttype = ObjectType.REC;
+            od_comparam.objecttype = ObjectType.RECORD;
             od_comparam.prop.CO_storageGroup = "ROM";
             od_comparam.accesstype = AccessType.ro;
             od_comparam.PDOtype = PDOMappingType.no;
@@ -3115,7 +3125,7 @@ mapped object  (subindex 1...8)
 
             }
 
-            od_mapping.objecttype = ObjectType.REC;
+            od_mapping.objecttype = ObjectType.RECORD;
             od_mapping.prop.CO_storageGroup = "ROM";
             od_mapping.accesstype = AccessType.rw; //Same as default but inconsistent with ROM above
             od_mapping.PDOtype = PDOMappingType.no;

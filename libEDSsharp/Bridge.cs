@@ -64,7 +64,7 @@ namespace libEDSsharp
                         }
                     }
 
-                    if (od.objecttype == ObjectType.REC && od.accesstype == EDSsharp.AccessType.UNKNOWN)
+                    if (od.objecttype == ObjectType.RECORD && od.accesstype == EDSsharp.AccessType.UNKNOWN)
                     {
                         ODentry sub = od.Getsubobject(1);
                         if (sub != null)
@@ -91,7 +91,7 @@ namespace libEDSsharp
                     coo.Description = new Xml2CSharp.Description();
                     coo.Description.Text = od.Description;
 
-                    //if (od.objecttype == ObjectType.ARRAY || od.objecttype == ObjectType.REC)
+                    //if (od.objecttype == ObjectType.ARRAY || od.objecttype == ObjectType.RECORD)
                     {
                         coo.SubNumber = od.Nosubindexes.ToString(); //-1?? //check me 
                         coo.CANopenSubObject = new List<Xml2CSharp.CANopenSubObject>();
@@ -158,47 +158,47 @@ namespace libEDSsharp
 
 
             Xml2CSharp.SupportedBaudRate baud = new Xml2CSharp.SupportedBaudRate();
-            dev.Other.BaudRate = new Xml2CSharp.BaudRate();
-            dev.Other.BaudRate.SupportedBaudRate = new List<Xml2CSharp.SupportedBaudRate>();
+            dev.Other.Baudrate = new Xml2CSharp.Baudrate();
+            dev.Other.Baudrate.SupportedBaudRate = new List<Xml2CSharp.SupportedBaudRate>();
 
             baud.Value = "10 Kbps";
             if (eds.di.BaudRate_10 == true)
-                dev.Other.BaudRate.SupportedBaudRate.Add(baud);
+                dev.Other.Baudrate.SupportedBaudRate.Add(baud);
 
             baud = new Xml2CSharp.SupportedBaudRate();
             baud.Value = "20 Kbps";
             if (eds.di.BaudRate_20 == true)
-                dev.Other.BaudRate.SupportedBaudRate.Add(baud);
+                dev.Other.Baudrate.SupportedBaudRate.Add(baud);
 
             baud = new Xml2CSharp.SupportedBaudRate();
             baud.Value = "50 Kbps";
             if (eds.di.BaudRate_50 == true)
-                dev.Other.BaudRate.SupportedBaudRate.Add(baud);
+                dev.Other.Baudrate.SupportedBaudRate.Add(baud);
 
             baud = new Xml2CSharp.SupportedBaudRate();
             baud.Value = "125 Kbps";
             if (eds.di.BaudRate_125 == true)
-                dev.Other.BaudRate.SupportedBaudRate.Add(baud);
+                dev.Other.Baudrate.SupportedBaudRate.Add(baud);
 
             baud = new Xml2CSharp.SupportedBaudRate();
             baud.Value = "250 Kbps";
             if (eds.di.BaudRate_250 == true)
-                dev.Other.BaudRate.SupportedBaudRate.Add(baud);
+                dev.Other.Baudrate.SupportedBaudRate.Add(baud);
 
             baud = new Xml2CSharp.SupportedBaudRate();
             baud.Value = "500 Kbps";
             if (eds.di.BaudRate_500 == true)
-                dev.Other.BaudRate.SupportedBaudRate.Add(baud);
+                dev.Other.Baudrate.SupportedBaudRate.Add(baud);
 
             baud = new Xml2CSharp.SupportedBaudRate();
             baud.Value = "800 Kbps";
             if (eds.di.BaudRate_800 == true)
-                dev.Other.BaudRate.SupportedBaudRate.Add(baud);
+                dev.Other.Baudrate.SupportedBaudRate.Add(baud);
 
             baud = new Xml2CSharp.SupportedBaudRate();
             baud.Value = "1000 Kbps";
             if (eds.di.BaudRate_1000 == true)
-                dev.Other.BaudRate.SupportedBaudRate.Add(baud);
+                dev.Other.Baudrate.SupportedBaudRate.Add(baud);
 
 
             dev.Other.Capabilities = new Xml2CSharp.Capabilities();
@@ -224,8 +224,8 @@ namespace libEDSsharp
             dev.Other.DeviceIdentity.ProductText.Description.Text = eds.fi.Description;
 
 
-            if (eds.dc.NodeId != 0)
-                dev.Other.DeviceIdentity.ConcreteNoideId = eds.dc.NodeId.ToString();
+            if (eds.dc.NodeID != 0)
+                dev.Other.DeviceIdentity.ConcreteNoideId = eds.dc.NodeID.ToString();
 
             dev.Other.DeviceIdentity.VendorName = eds.di.VendorName;
             dev.Other.DeviceIdentity.VendorNumber = eds.di.VendorNumber;
@@ -431,7 +431,7 @@ namespace libEDSsharp
             eds.du.Dummy0006 = dev.Other.DummyUsage.Dummy[5].Entry == "Dummy0006=1";
             eds.du.Dummy0007 = dev.Other.DummyUsage.Dummy[6].Entry == "Dummy0007=1";
 
-            foreach (Xml2CSharp.SupportedBaudRate baud in dev.Other.BaudRate.SupportedBaudRate)
+            foreach (Xml2CSharp.SupportedBaudRate baud in dev.Other.Baudrate.SupportedBaudRate)
             {
                 if (baud.Value == "10 Kbps")
                     eds.di.BaudRate_10 = true;
@@ -506,11 +506,11 @@ namespace libEDSsharp
 
             if (dev.Other.DeviceIdentity.ConcreteNoideId != null)
             {
-                eds.dc.NodeId = Convert.ToByte(dev.Other.DeviceIdentity.ConcreteNoideId);
+                eds.dc.NodeID = Convert.ToByte(dev.Other.DeviceIdentity.ConcreteNoideId);
             }
             else
             {
-                eds.dc.NodeId = 0;
+                eds.dc.NodeID = 0;
             }
 
             string dtcombined;

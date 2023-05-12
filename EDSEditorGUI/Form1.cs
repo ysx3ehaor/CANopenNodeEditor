@@ -546,9 +546,17 @@ namespace ODEditor
                            + "CANopen XDC v1.1 (*.xdc)|*.xdc|"
                            + "CANopen XPD v1.1 (*.xpd)|*.xpd";
 
-                sfd.InitialDirectory = Path.GetDirectoryName(dv.eds.projectFilename);
-                sfd.RestoreDirectory = true;
-                sfd.FileName = Path.GetFileNameWithoutExtension(dv.eds.projectFilename);
+                if (dv.eds.projectFilename == "")
+                {
+                    sfd.FileName = Path.GetFileNameWithoutExtension(networkfilename);
+                }
+                else
+                {
+                    sfd.InitialDirectory = Path.GetDirectoryName(dv.eds.projectFilename);
+                    sfd.RestoreDirectory = true;
+                    sfd.FileName = Path.GetFileNameWithoutExtension(dv.eds.projectFilename);
+                }
+
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
@@ -650,7 +658,17 @@ namespace ODEditor
 
             network.Add(eds);
         }
-
+        private void TabControl1_Selected(Object sender, TabControlEventArgs e)
+        {
+            if(tabControl1.SelectedIndex == 0)
+            {
+                DeviceView dv = (DeviceView)tabControl1.SelectedTab.Controls[0];
+                dv.dispatch_updateOD();
+                dv.dispatch_updatePDOinfo();
+                dv.eds.UpdatePDOcount();
+                dv.dispatch_updatedevice();
+            }
+        }
         private void tabControl1_ControlsChanged(object sender, ControlEventArgs e)
         {
             enablesavemenus(tabControl1.TabCount > 0);  
@@ -898,7 +916,7 @@ namespace ODEditor
                 Bridge b = new Bridge();
 
                 EDSsharp eds = b.convert(d);
-                //eds.filename = path;  //fixme
+                //eds.filename = path;  //fixme: We need to save the projectfilename or SaveAs will throw an exception
 
                 tabControl1.TabPages.Add(eds.di.ProductName);
                 
