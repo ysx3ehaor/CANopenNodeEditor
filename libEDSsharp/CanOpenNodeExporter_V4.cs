@@ -735,7 +735,7 @@ OD_t *{0} = &_{0};", odname, string.Join(",\n    ", ODList)));
                 valueDefined = false;
             else if (dataType != DataType.VISIBLE_STRING && dataType != DataType.UNICODE_STRING && dataType != DataType.OCTET_STRING)
             {
-                defaultvalue = defaultvalue.Trim();
+                defaultvalue = defaultvalue.Trim().ToUpper();       // TOUPPER to fetch different case of "NODeID" (allowed acording DS301)
 
                 if (defaultvalue.Contains("$NODEID"))
                 {
