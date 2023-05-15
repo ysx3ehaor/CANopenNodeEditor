@@ -1166,9 +1166,9 @@ const CO_OD_entry_t CO_OD[CO_OD_NoOfElements] = {
                     defaultvalue = "0";
                 }
 
-                if (defaultvalue.Contains("$NODEID"))
+                if (defaultvalue.Contains("$NODEID", StringComparison.OrdinalIgnoreCase)) // fetch different case of "NODeID" (allowed according DS301)
                 {
-                    defaultvalue = defaultvalue.Replace("$NODEID", "");
+                    defaultvalue = defaultvalue.ToUpper().Replace("$NODEID", "");
                     defaultvalue = defaultvalue.Replace("+", "");
                     defaultvalue = defaultvalue.Trim();
                     nodeidreplace = true;

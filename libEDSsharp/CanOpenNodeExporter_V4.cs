@@ -735,11 +735,11 @@ OD_t *{0} = &_{0};", odname, string.Join(",\n    ", ODList)));
                 valueDefined = false;
             else if (dataType != DataType.VISIBLE_STRING && dataType != DataType.UNICODE_STRING && dataType != DataType.OCTET_STRING)
             {
-                defaultvalue = defaultvalue.Trim().ToUpper();       // TOUPPER to fetch different case of "NODeID" (allowed acording DS301)
+                defaultvalue = defaultvalue.Trim();       
 
-                if (defaultvalue.Contains("$NODEID"))
+                if (defaultvalue.Contains("$NODEID",StringComparison.OrdinalIgnoreCase)) // fetch different case of "NODeID" (allowed according DS301)
                 {
-                    defaultvalue = defaultvalue.Replace("$NODEID", "");
+                    defaultvalue = defaultvalue.ToUpper().Replace("$NODEID", "");
                     defaultvalue = defaultvalue.Replace("+", "");
                     defaultvalue = defaultvalue.Trim();
                     if (defaultvalue == "")
