@@ -159,12 +159,32 @@ namespace ODEditor
 
                 if (insObjForm.ShowDialog() == DialogResult.OK)
                 {
-                    dv.eds.Dirty = true;
-                    dv.dispatch_updateOD();
-                    dv.dispatch_updatePDOinfo();
+                    EDSsharp modifiedEds = insObjForm.GetModifiedEDS();
+                    modifiedEds.Dirty = true;
 
-                    dv.eds.UpdatePDOcount();
-                    dv.dispatch_updatedevice();
+                    if(modifiedEds == dv.eds)
+                    {
+                        dv.dispatch_updateOD();
+                        dv.dispatch_updatePDOinfo();
+
+                        dv.eds.UpdatePDOcount();
+                        dv.dispatch_updatedevice();
+                    }
+                    else
+                    {
+                        foreach(TabPage page in tabControl1.TabPages)
+                        {
+                            DeviceView devView = (DeviceView)page.Controls[0];
+                            if(devView.eds == modifiedEds)
+                            {
+                                devView.dispatch_updateOD();
+                                devView.dispatch_updatePDOinfo();
+
+                                devView.eds.UpdatePDOcount();
+                                devView.dispatch_updatedevice();
+                            }
+                        }
+                    }
                 }
             }
         }
