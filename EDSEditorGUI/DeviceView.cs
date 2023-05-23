@@ -30,6 +30,8 @@ namespace ODEditor
         readonly public EDSsharp eds;
         readonly private List<EDSsharp> network;
 
+        public event EventHandler<UpdateODViewEventArgs> UpdateODViewForEDS;
+
         public DeviceView(EDSsharp eds_target, List<EDSsharp> network)
         {
             eds = eds_target;
@@ -38,6 +40,7 @@ namespace ODEditor
             InitializeComponent();
 
             this.deviceODView1.network = network;
+            this.deviceODView1.UpdateODViewForEDS += DeviceODView1_UpdateODView;
 
             foreach (TabPage tp in tabControl1.TabPages)
             {
@@ -57,6 +60,15 @@ namespace ODEditor
             devicePDOView1.Init(true);
             devicePDOView2.Init(false);
      
+        }
+
+        private void DeviceODView1_UpdateODView(object sender, UpdateODViewEventArgs e)
+        {
+            EventHandler<UpdateODViewEventArgs> handler = UpdateODViewForEDS;
+            if(handler != null)
+            {
+                handler(this, e);  
+            }
         }
 
         #region UpdateDispatchEvents

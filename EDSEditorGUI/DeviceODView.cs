@@ -39,6 +39,8 @@ namespace ODEditor
         bool justUpdating = false;
         bool ExporterOld = false;
         bool ExporterV4 = false;
+
+        public event EventHandler<UpdateODViewEventArgs> UpdateODViewForEDS;
        
         public DeviceODView()
         {
@@ -678,6 +680,10 @@ namespace ODEditor
                         PopulateObjectLists(eds);
                         PopulateSubList();
                         PopulateObject();
+                    }
+                    else
+                    {
+                        UpdateODViewForEDS?.Invoke(this, new UpdateODViewEventArgs(modifiedEds));
                     }
                 }
             }
