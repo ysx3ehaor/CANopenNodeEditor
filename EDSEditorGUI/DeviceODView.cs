@@ -165,7 +165,6 @@ namespace ODEditor
             }
 
             return result;
-        }  return false;
         }
 
         private void ComboBoxSet(ComboBox comboBox, string item)
