@@ -154,7 +154,7 @@ namespace ODEditor
                     return;
                 }
 
-                InsertObjects insObjForm = new InsertObjects(dv.eds, eds.ods, "0");
+                InsertObjects insObjForm = new InsertObjects(dv.eds, network, eds.ods, "0");
 
                 if (insObjForm.ShowDialog() == DialogResult.OK)
                 {
@@ -181,7 +181,7 @@ namespace ODEditor
                 Bridge bridge = new Bridge(); //tell me again why bridge is not static?
                 dev = bridge.convert(eds);
 
-                DeviceView device = new DeviceView(eds);
+                DeviceView device = new DeviceView(eds, network);
 
                 eds.OnDataDirty += Eds_onDataDirty;
 
@@ -335,7 +335,7 @@ namespace ODEditor
 
                 tabControl1.TabPages.Add(eds.di.ProductName);
 
-                DeviceView device = new DeviceView(eds);
+                DeviceView device = new DeviceView(eds, network);
 
                 eds.OnDataDirty += Eds_onDataDirty;
 
@@ -381,7 +381,7 @@ namespace ODEditor
 
                 tabControl1.TabPages.Add(eds.di.ProductName);
 
-                DeviceView device = new DeviceView(eds);
+                DeviceView device = new DeviceView(eds, network);
 
                 eds.OnDataDirty += Eds_onDataDirty;
 
@@ -647,7 +647,7 @@ namespace ODEditor
 
             tabControl1.TabPages.Add(eds.di.ProductName);
 
-            DeviceView device = new DeviceView(eds);
+            DeviceView device = new DeviceView(eds, network);
 
             eds.OnDataDirty += Eds_onDataDirty;
 
@@ -890,7 +890,7 @@ namespace ODEditor
 
                 tabControl1.TabPages.Add(eds.di.ProductName);
 
-                DeviceView device = new DeviceView(eds);
+                DeviceView device = new DeviceView(eds, network);
 
                 tabControl1.TabPages[tabControl1.TabPages.Count - 1].Controls.Add(device);
                 device.Dock = DockStyle.Fill;
@@ -921,7 +921,7 @@ namespace ODEditor
                 tabControl1.TabPages.Add(eds.di.ProductName);
                 
 
-                DeviceView device = new DeviceView(eds);
+                DeviceView device = new DeviceView(eds, network);
 
                 tabControl1.TabPages[tabControl1.TabPages.Count - 1].Controls.Add(device);
                 device.Dock = DockStyle.Fill;

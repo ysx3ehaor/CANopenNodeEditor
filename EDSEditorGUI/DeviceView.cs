@@ -18,6 +18,7 @@
 */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using libEDSsharp;
 
@@ -27,12 +28,16 @@ namespace ODEditor
     {
 
         readonly public EDSsharp eds;
+        readonly private List<EDSsharp> network;
 
-        public DeviceView(EDSsharp eds_target)
+        public DeviceView(EDSsharp eds_target, List<EDSsharp> network)
         {
             eds = eds_target;
+            this.network = network;
 
             InitializeComponent();
+
+            this.deviceODView1.network = network;
 
             foreach (TabPage tp in tabControl1.TabPages)
             {
