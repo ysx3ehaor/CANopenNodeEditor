@@ -152,6 +152,7 @@
     <Compile Include="TableLayoutDB.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UpdateODViewEventArgs.cs" />
     <Compile Include="Warnings.cs">
       <SubType>Form</SubType>
     </Compile>

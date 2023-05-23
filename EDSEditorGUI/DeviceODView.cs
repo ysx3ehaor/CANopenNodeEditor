@@ -25,13 +25,13 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using libEDSsharp;
-
 namespace ODEditor
 {
 
     public partial class DeviceODView : MyTabUserControl
     {
         EDSsharp eds = null;
+        public List<EDSsharp> network;
 
         ODentry selectedObject;
         ODentry lastSelectedObject;
@@ -39,6 +39,8 @@ namespace ODEditor
         bool justUpdating = false;
         bool ExporterOld = false;
         bool ExporterV4 = false;
+       
+        public event EventHandler<UpdateODViewEventArgs> UpdateODViewForEDS;
        
         public DeviceODView()
         {
@@ -127,7 +129,7 @@ namespace ODEditor
             return (type == ExporterFactory.Exporter.CANOPENNODE_V4);
         }
 
-        private bool Checkdirty()
+       private bool Checkdirty()
         {
             var result = false;
 
@@ -163,6 +165,7 @@ namespace ODEditor
             }
 
             return result;
+        }  return false;
         }
 
         private void ComboBoxSet(ComboBox comboBox, string item)
@@ -635,7 +638,6 @@ namespace ODEditor
                         contextMenu_subObject_removeSubItemToolStripMenuItem.Enabled = od.Subindex > 0 && od.parent != null;
                         contextMenu_subObject_removeSubItemLeaveGapToolStripMenuItem.Enabled = parent.objecttype == ObjectType.RECORD && od.Subindex > 0 && od.parent != null;
 
-                        
                         if (isClickOnItem(e.Location))
                         {
                             contextMenu_subObject.Show(Cursor.Position);
@@ -713,15 +715,23 @@ namespace ODEditor
 
             if (srcObjects.Count > 0)
             {
-                InsertObjects insObjForm = new InsertObjects(eds, srcObjects, "1");
+                InsertObjects insObjForm = new InsertObjects(eds, network, srcObjects, "1");
 
                 if (insObjForm.ShowDialog() == DialogResult.OK)
                 {
                     selectedObject = null;
-                    eds.Dirty = true;
+                    EDSsharp modifiedEds = insObjForm.GetModifiedEDS();
+                    modifiedEds.Dirty = true;
+                    if(modifiedEds == this.eds)
+                    {
                     PopulateObjectLists(eds);
                     PopulateSubList();
                     PopulateObject();
+                    }
+                    else
+                    {
+                        UpdateODViewForEDS?.Invoke(this, new UpdateODViewEventArgs(modifiedEds));
+                    }
                 }
             }
         }
