@@ -31,6 +31,7 @@ namespace ODEditor
     public partial class DeviceODView : MyTabUserControl
     {
         EDSsharp eds = null;
+        public List<EDSsharp> network;
 
         ODentry selectedObject;
         ODentry lastSelectedObject;
@@ -38,6 +39,8 @@ namespace ODEditor
         bool justUpdating = false;
         bool ExporterOld = false;
         bool ExporterV4 = false;
+
+        public event EventHandler<UpdateODViewEventArgs> UpdateODViewForEDS;
        
         public DeviceODView()
         {
@@ -665,15 +668,23 @@ namespace ODEditor
 
             if (srcObjects.Count > 0)
             {
-                InsertObjects insObjForm = new InsertObjects(eds, srcObjects, "1");
+                InsertObjects insObjForm = new InsertObjects(eds, network, srcObjects, "1");
 
                 if (insObjForm.ShowDialog() == DialogResult.OK)
                 {
                     selectedObject = null;
-                    eds.Dirty = true;
-                    PopulateObjectLists(eds);
-                    PopulateSubList();
-                    PopulateObject();
+                    EDSsharp modifiedEds = insObjForm.GetModifiedEDS();
+                    modifiedEds.Dirty = true;
+                    if(modifiedEds == this.eds)
+                    {
+                        PopulateObjectLists(eds);
+                        PopulateSubList();
+                        PopulateObject();
+                    }
+                    else
+                    {
+                        UpdateODViewForEDS?.Invoke(this, new UpdateODViewEventArgs(modifiedEds));
+                    }
                 }
             }
         }

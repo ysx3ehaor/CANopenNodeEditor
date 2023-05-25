@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using System.IO;
 using libEDSsharp;
 using Xml2CSharp;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ODEditor
 {
@@ -154,16 +155,36 @@ namespace ODEditor
                     return;
                 }
 
-                InsertObjects insObjForm = new InsertObjects(dv.eds, eds.ods, "0");
+                InsertObjects insObjForm = new InsertObjects(dv.eds, network, eds.ods, "0");
 
                 if (insObjForm.ShowDialog() == DialogResult.OK)
                 {
-                    dv.eds.Dirty = true;
-                    dv.dispatch_updateOD();
-                    dv.dispatch_updatePDOinfo();
+                    EDSsharp modifiedEds = insObjForm.GetModifiedEDS();
+                    modifiedEds.Dirty = true;
 
-                    dv.eds.UpdatePDOcount();
-                    dv.dispatch_updatedevice();
+                    if(modifiedEds == dv.eds)
+                    {
+                        dv.dispatch_updateOD();
+                        dv.dispatch_updatePDOinfo();
+
+                        dv.eds.UpdatePDOcount();
+                        dv.dispatch_updatedevice();
+                    }
+                    else
+                    {
+                        foreach(TabPage page in tabControl1.TabPages)
+                        {
+                            DeviceView devView = (DeviceView)page.Controls[0];
+                            if(devView.eds == modifiedEds)
+                            {
+                                devView.dispatch_updateOD();
+                                devView.dispatch_updatePDOinfo();
+
+                                devView.eds.UpdatePDOcount();
+                                devView.dispatch_updatedevice();
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -181,8 +202,9 @@ namespace ODEditor
                 Bridge bridge = new Bridge(); //tell me again why bridge is not static?
                 dev = bridge.convert(eds);
 
-                DeviceView device = new DeviceView(eds);
+                DeviceView device = new DeviceView(eds, network);
 
+                device.UpdateODViewForEDS += Device_UpdateODViewForEDS;
                 eds.OnDataDirty += Eds_onDataDirty;
 
                 tabControl1.TabPages.Add(eds.di.ProductName);
@@ -335,8 +357,9 @@ namespace ODEditor
 
                 tabControl1.TabPages.Add(eds.di.ProductName);
 
-                DeviceView device = new DeviceView(eds);
+                DeviceView device = new DeviceView(eds, network);
 
+                device.UpdateODViewForEDS += Device_UpdateODViewForEDS;
                 eds.OnDataDirty += Eds_onDataDirty;
 
                 tabControl1.TabPages[tabControl1.TabPages.Count - 1].Controls.Add(device);
@@ -381,8 +404,8 @@ namespace ODEditor
 
                 tabControl1.TabPages.Add(eds.di.ProductName);
 
-                DeviceView device = new DeviceView(eds);
-
+                DeviceView device = new DeviceView(eds, network);
+                device.UpdateODViewForEDS += Device_UpdateODViewForEDS;
                 eds.OnDataDirty += Eds_onDataDirty;
 
                 tabControl1.TabPages[tabControl1.TabPages.Count - 1].Controls.Add(device);
@@ -404,6 +427,26 @@ namespace ODEditor
             }
 
         }
+
+        private void Device_UpdateODViewForEDS(object sender, UpdateODViewEventArgs e)
+        {
+            foreach (TabPage page in tabControl1.TabPages)
+            {
+                foreach (Control c in page.Controls)
+                {
+                    if (c.GetType() == typeof(DeviceView))
+                    {
+                        DeviceView d = (DeviceView)c;
+                        if (d.eds == e.EDS)
+                        {
+                            d.dispatch_updateOD();
+                        }
+                    }
+
+                }
+            }
+        }
+
 
         private void Eds_onDataDirty(bool dirty, EDSsharp sender)
         {
@@ -647,7 +690,8 @@ namespace ODEditor
 
             tabControl1.TabPages.Add(eds.di.ProductName);
 
-            DeviceView device = new DeviceView(eds);
+            DeviceView device = new DeviceView(eds, network);
+            device.UpdateODViewForEDS += Device_UpdateODViewForEDS;
 
             eds.OnDataDirty += Eds_onDataDirty;
 
@@ -890,12 +934,13 @@ namespace ODEditor
 
                 tabControl1.TabPages.Add(eds.di.ProductName);
 
-                DeviceView device = new DeviceView(eds);
+                DeviceView device = new DeviceView(eds, network);
 
                 tabControl1.TabPages[tabControl1.TabPages.Count - 1].Controls.Add(device);
                 device.Dock = DockStyle.Fill;
 
                 network.Add(eds);
+                device.UpdateODViewForEDS += Device_UpdateODViewForEDS;
                 eds.OnDataDirty += Eds_onDataDirty;
 
                 device.dispatch_updateOD();
@@ -921,12 +966,13 @@ namespace ODEditor
                 tabControl1.TabPages.Add(eds.di.ProductName);
                 
 
-                DeviceView device = new DeviceView(eds);
+                DeviceView device = new DeviceView(eds, network);
 
                 tabControl1.TabPages[tabControl1.TabPages.Count - 1].Controls.Add(device);
                 device.Dock = DockStyle.Fill;
 
                 network.Add(eds);
+                device.UpdateODViewForEDS += Device_UpdateODViewForEDS;
                 eds.OnDataDirty += Eds_onDataDirty;
 
                 device.dispatch_updateOD();

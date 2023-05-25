@@ -28,10 +28,11 @@ namespace ODEditor
 {
     public partial class InsertObjects : Form
     {
-        readonly EDSsharp eds;
+        private EDSsharp eds;
         readonly SortedDictionary<UInt16, ODentry> srcObjects;
         readonly bool[] enabled;
         readonly int dataGridView_InitialColumnCount;
+        List<EDSsharp> network;
         List<int> offsets;
 
         /// <summary>
@@ -39,12 +40,21 @@ namespace ODEditor
         /// </summary>
         /// <param name="eds"></param>
         /// <param name="srcObjects"></param>
-        public InsertObjects(EDSsharp eds, SortedDictionary<UInt16, ODentry> srcObjects, string initialOffset)
+        public InsertObjects(EDSsharp eds, List<EDSsharp> network, SortedDictionary<UInt16, ODentry> srcObjects, string initialOffset)
         {
             this.eds = eds;
             this.srcObjects = srcObjects;
+            this.network = network;
 
             InitializeComponent();
+
+            cbox_Target.Items.Clear();
+            foreach(var item in network)
+            {
+                cbox_Target.Items.Add(item.di.ProductName);
+            }
+            cbox_Target.SelectedItem = eds.di.ProductName;
+
             textBox_offsets.Text = initialOffset;
 
             dataGridView.Columns.Add(new DataGridViewCheckBoxColumn()
@@ -232,6 +242,28 @@ namespace ODEditor
                 cell.Value = false;
                 enabled[odIdx++] = false;
             }
+        }
+
+        private void cbox_Target_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            EDSsharp edsBefore = eds;
+            foreach (var item in network)
+            {
+                if((string)cbox_Target.SelectedItem == item.di.ProductName)
+                {
+                    this.eds = item;
+                    break;
+                }
+            }
+            if(this.eds != null && this.eds != edsBefore)
+            {
+                Verify(false);
+            }
+        }
+
+        public EDSsharp GetModifiedEDS()
+        {
+            return this.eds;
         }
     }
 }
