@@ -323,8 +323,18 @@ namespace libEDSsharp
 
                 }
 
+                //Fix for old CanOpen XML;
+                if (coo.ObjectType == "REC")
+                {
+                    coo.ObjectType = "RECORD";
+                }
 
-                entry.objecttype = (ObjectType)Enum.Parse(typeof(ObjectType), coo.ObjectType);
+                ObjectType oType;
+                if(Enum.TryParse(coo.ObjectType, out oType))
+                {
+                    //TDO Parsing failed, we should alert the user
+                }
+                entry.objecttype = oType;
 
                 entry.defaultvalue = coo.DefaultValue;
                 entry.HighLimit = coo.HighValue;
