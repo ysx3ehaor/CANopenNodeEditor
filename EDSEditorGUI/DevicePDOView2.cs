@@ -440,7 +440,8 @@ namespace ODEditor
             {
                 if (isTXPDO != slot.isTXPDO())
                     continue;
-
+                if (grid1.ColumnsCount > 64+3)
+                    grid1.ColumnsCount = 64+3;
                 grid1.Redim(grid1.RowsCount + 1, grid1.ColumnsCount);
                 grid1.Rows[grid1.RowsCount - 1].Tag = slot;
                 grid1.Rows[row + 2].Height = 30;
@@ -480,6 +481,12 @@ namespace ODEditor
                     }
 
                     ordinal++;
+
+                    if (bitoff >= 64) {
+                        MessageBox.Show(string.Format("Invalid TXPDO mapping parameters in 0x{0:X}. Trying to map more than 64 bit (8 Bytes). CAN message maximum lenght is 8 Byte", slot.ConfigurationIndex));
+                        break;
+                    }
+
                 }
 
                 //Pad out with an empty combo
