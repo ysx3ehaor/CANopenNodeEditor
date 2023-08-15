@@ -725,6 +725,7 @@ namespace ODEditor
             enablesavemenus(tabControl1.TabCount > 1);
         }
 
+
         private void enablesavemenus(bool enable)
         {
             insertToolStripMenuItem.Enabled = enable;
@@ -1221,8 +1222,8 @@ namespace ODEditor
         {
             this.Activate();
             bool unsupportedFile = false;
-            var data = e.Data.GetData(DataFormats.FileDrop);
-            if (data != null && data.GetType()==typeof(String))
+            string[] data = (string[]) e.Data.GetData(DataFormats.FileDrop);
+            if (data != null) 
             {                
                 var rawFileNames = data as string[];
                 if (rawFileNames.Length > 0)
@@ -1282,6 +1283,7 @@ namespace ODEditor
         {
             disableDragDropTooltip();
         }
+
 
         private void ODEditor_MainForm_DragDrop(object sender, DragEventArgs e)
         {
