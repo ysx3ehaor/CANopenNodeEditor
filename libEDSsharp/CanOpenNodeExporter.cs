@@ -580,6 +580,9 @@ namespace libEDSsharp
                     od = maxTXmappingsOD;
                 }
 
+                if (od == null)
+                    continue;
+
                 List<string> structmemberlist = new List<string>();
 
                 file.WriteLine(string.Format("/*{0:X4}      */ typedef struct {{", kvp.Key));
@@ -1118,6 +1121,14 @@ const CO_OD_entry_t CO_OD[CO_OD_NoOfElements] = {
               /* If variable is mapped to any PDO, then  is automatically send, if variable its value */
               flags |=0x40;
             }
+
+            if(od.parent!=null && od.parent.prop.CO_flagsPDO)
+            {
+                //parent types are storing the prop in the ODeditor in the parent object but the child object is tested to set the flag
+                //this is breaking legacy export
+                flags |= 0x40;
+            }
+
 
             int datasize = (int)Math.Ceiling((double)od.Sizeofdatatype() / (double)8.0);
 
