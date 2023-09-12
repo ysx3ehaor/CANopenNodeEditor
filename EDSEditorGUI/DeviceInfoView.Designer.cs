@@ -100,6 +100,10 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.checkBox_NG_Master = new System.Windows.Forms.CheckBox();
+            this.checkBox_NG_Slave = new System.Windows.Forms.CheckBox();
+            this.textBox_NG_NumOfNodes = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -279,7 +283,7 @@
             this.textBox_deviceedsname.ReadOnly = true;
             this.textBox_deviceedsname.Size = new System.Drawing.Size(300, 22);
             this.textBox_deviceedsname.TabIndex = 7;
-               // 
+            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.label3);
@@ -296,11 +300,11 @@
             this.groupBox6.Controls.Add(this.textBox_nodename);
             this.groupBox6.Controls.Add(this.label32);
             this.groupBox6.Controls.Add(this.textBox_concretenodeid);
-            this.groupBox6.Location = new System.Drawing.Point(527, 258);
+            this.groupBox6.Location = new System.Drawing.Point(527, 385);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox6.Size = new System.Drawing.Size(452, 245);
+            this.groupBox6.Size = new System.Drawing.Size(452, 248);
             this.groupBox6.TabIndex = 5;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Device commissioning";
@@ -547,7 +551,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(160, 236);
+            this.groupBox1.Size = new System.Drawing.Size(160, 271);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Baudrates";
@@ -653,6 +657,10 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textBox_NG_NumOfNodes);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.checkBox_NG_Master);
+            this.groupBox2.Controls.Add(this.checkBox_NG_Slave);
             this.groupBox2.Controls.Add(this.textBox_granularity);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.textBox_txpdos);
@@ -665,7 +673,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(284, 236);
+            this.groupBox2.Size = new System.Drawing.Size(284, 271);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "General and Master Features";
@@ -700,7 +708,7 @@
             // checkBox_lssMaster
             // 
             this.checkBox_lssMaster.AutoSize = true;
-            this.checkBox_lssMaster.Location = new System.Drawing.Point(13, 156);
+            this.checkBox_lssMaster.Location = new System.Drawing.Point(13, 158);
             this.checkBox_lssMaster.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox_lssMaster.Name = "checkBox_lssMaster";
             this.checkBox_lssMaster.Size = new System.Drawing.Size(98, 20);
@@ -740,7 +748,7 @@
             // checkBox_lss
             // 
             this.checkBox_lss.AutoSize = true;
-            this.checkBox_lss.Location = new System.Drawing.Point(13, 134);
+            this.checkBox_lss.Location = new System.Drawing.Point(13, 136);
             this.checkBox_lss.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox_lss.Name = "checkBox_lss";
             this.checkBox_lss.Size = new System.Drawing.Size(92, 20);
@@ -803,7 +811,7 @@
             this.textBox_create_datetime.Name = "textBox_create_datetime";
             this.textBox_create_datetime.Size = new System.Drawing.Size(300, 22);
             this.textBox_create_datetime.TabIndex = 4;
-              // 
+            // 
             // textBox_di_description
             // 
             this.textBox_di_description.Location = new System.Drawing.Point(185, 57);
@@ -879,6 +887,48 @@
             this.label18.Size = new System.Drawing.Size(76, 16);
             this.label18.TabIndex = 18;
             this.label18.Text = "File version";
+            // 
+            // checkBox_NG_Master
+            // 
+            this.checkBox_NG_Master.AutoSize = true;
+            this.checkBox_NG_Master.Location = new System.Drawing.Point(13, 216);
+            this.checkBox_NG_Master.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox_NG_Master.Name = "checkBox_NG_Master";
+            this.checkBox_NG_Master.Size = new System.Drawing.Size(163, 20);
+            this.checkBox_NG_Master.TabIndex = 43;
+            this.checkBox_NG_Master.Text = "Node guarding Master";
+            this.checkBox_NG_Master.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_NG_Slave
+            // 
+            this.checkBox_NG_Slave.AutoSize = true;
+            this.checkBox_NG_Slave.Location = new System.Drawing.Point(13, 195);
+            this.checkBox_NG_Slave.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox_NG_Slave.Name = "checkBox_NG_Slave";
+            this.checkBox_NG_Slave.Size = new System.Drawing.Size(157, 20);
+            this.checkBox_NG_Slave.TabIndex = 42;
+            this.checkBox_NG_Slave.Text = "Node guarding Slave";
+            this.checkBox_NG_Slave.UseVisualStyleBackColor = true;
+            // 
+            // textBox_NG_NumOfNodes
+            // 
+            this.textBox_NG_NumOfNodes.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox_NG_NumOfNodes.Location = new System.Drawing.Point(165, 238);
+            this.textBox_NG_NumOfNodes.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox_NG_NumOfNodes.Name = "textBox_NG_NumOfNodes";
+            this.textBox_NG_NumOfNodes.ReadOnly = true;
+            this.textBox_NG_NumOfNodes.Size = new System.Drawing.Size(105, 22);
+            this.textBox_NG_NumOfNodes.TabIndex = 44;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(14, 241);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(143, 16);
+            this.label10.TabIndex = 45;
+            this.label10.Text = "No of monitored nodes";
             // 
             // DeviceInfoView
             // 
@@ -979,5 +1029,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBox_mdFileName;
+        private System.Windows.Forms.TextBox textBox_NG_NumOfNodes;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.CheckBox checkBox_NG_Master;
+        private System.Windows.Forms.CheckBox checkBox_NG_Slave;
     }
 }
