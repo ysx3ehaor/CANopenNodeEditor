@@ -645,6 +645,7 @@ namespace libEDSsharp
             NetworkManagement.CANopenGeneralFeatures.nrOfRxPDO = eds.di.NrOfRXPDO;
             NetworkManagement.CANopenGeneralFeatures.nrOfTxPDO = eds.di.NrOfTXPDO;
             //extra items
+
             //NetworkManagment.CANopenGeneralFeatures.SDORequestingDevice;
             //NetworkManagment.CANopenGeneralFeatures.selfStartingDevice;
 
