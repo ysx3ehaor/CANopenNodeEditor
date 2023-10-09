@@ -801,8 +801,7 @@ namespace libEDSsharp
 
         public bool NG_Master;
 
-        [EdsExport]
-        public UInt16 NrOfNG_MonitoredNodes=0;
+        public UInt16 NrOfNG_MonitoredNodes;
 
         public DeviceInfo()
         {
