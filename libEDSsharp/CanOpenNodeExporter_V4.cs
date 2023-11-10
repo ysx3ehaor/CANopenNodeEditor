@@ -191,6 +191,10 @@ namespace libEDSsharp
         private int Prepare_var(ODentry od, string indexH, string varName, string group)
         {
             DataProperties data = Get_dataProperties(od.datatype, od.defaultvalue, od.prop.CO_stringLengthMin, indexH);
+
+            if ((data.length == 0) && (od.datatype == DataType.VISIBLE_STRING || od.datatype == DataType.UNICODE_STRING))
+                Warnings.AddWarning(string.Format(" Object 0x{0:X4}/{1:X2} A string must have a default value to set the required datasize for canopen node, i have set this to [1] byte to prevent compile errors", od.Index, od.Subindex), Warnings.warning_class.WARNING_STRING);
+
             string attr = Get_attributes(od, data.cTypeMultibyte, data.cTypeString);
 
             // data storage
@@ -246,6 +250,11 @@ namespace libEDSsharp
                 DataType dataType = (sub.datatype != DataType.UNKNOWN) ? sub.datatype : od.datatype;
 
                 DataProperties data = Get_dataProperties(dataType, sub.defaultvalue, sub.prop.CO_stringLengthMin, indexH);
+
+                if ((data.length == 0) && (dataType == DataType.VISIBLE_STRING || dataType == DataType.UNICODE_STRING))
+                    Warnings.AddWarning(string.Format(" Object 0x{0:X4}/{1:X2} A string must have a default value to set the required datasize for canopen node, i have set this to [1] byte to prevent compile errors", od.Index, od.Subindex), Warnings.warning_class.WARNING_STRING);
+
+
                 string attr = Get_attributes(sub, data.cTypeMultibyte, data.cTypeString);
 
                 if (sub.Subindex != i)
@@ -339,6 +348,10 @@ namespace libEDSsharp
             foreach (ODentry sub in od.subobjects.Values)
             {
                 DataProperties data = Get_dataProperties(sub.datatype, sub.defaultvalue, sub.prop.CO_stringLengthMin, indexH);
+
+                if ((data.length == 0) && (sub.datatype == DataType.VISIBLE_STRING || sub.datatype == DataType.UNICODE_STRING ))
+                    Warnings.AddWarning(string.Format(" Object 0x{0:X4}/{1:X2} A string must have a default value to set the required datasize for canopen node, i have set this to [1] byte to prevent compile errors", od.Index, od.Subindex), Warnings.warning_class.WARNING_STRING);
+
                 string attr = Get_attributes(sub, data.cTypeMultibyte, data.cTypeString);
 
                 if (sub.Subindex == 0 && (data.cType != "uint8_t" || data.length != 1))
@@ -605,8 +618,11 @@ namespace libEDSsharp
             }
 
             // remove ',' from the last element
-            string s = ODObjs[ODObjs.Count - 1];
-            ODObjs[ODObjs.Count - 1] = s.Remove(s.Length - 1);
+            if (ODObjs.Count > 0)
+            {
+                string s = ODObjs[ODObjs.Count - 1];
+                ODObjs[ODObjs.Count - 1] = s.Remove(s.Length - 1);
+            }
 
             file.WriteLine(string.Format(@"
 
@@ -769,6 +785,7 @@ OD_t *{0} = &_{0};", odname, string.Join(",\n    ", ODList)));
             {
                 bool signedNumber = false;
                 bool unsignedNumber = false;
+                UInt32 len = 0;
 
                 switch (dataType)
                 {
@@ -873,15 +890,14 @@ OD_t *{0} = &_{0};", odname, string.Join(",\n    ", ODList)));
 
                     case DataType.DOMAIN:
                         // keep default values (0 and null)
+                        data.cType = "uint8_t";
                         break;
 
                     case DataType.VISIBLE_STRING:
                         data.cTypeString = true;
+                        List<string> chars = new List<string>();
                         if (valueDefined || stringLength > 0)
                         {
-                            List<string> chars = new List<string>();
-                            UInt32 len = 0;
-
                             if (valueDefined)
                             {
                                 UTF8Encoding utf8 = new UTF8Encoding();
@@ -905,25 +921,26 @@ OD_t *{0} = &_{0};", odname, string.Join(",\n    ", ODList)));
                                 chars.Add("0");
                             }
 
-                            // extra string terminator
-                            chars.Add("0");
-
-                            data.length = len;
-                            data.cType = "char";
-                            data.cTypeArray = $"[{len + 1}]";
-                            data.cTypeArray0 = "[0]";
-                            data.cValue = $"{{{string.Join(", ", chars)}}}";
                         }
+                        // extra string terminator
+                        chars.Add("0");
+                        data.length = len;
+
+                        data.cType = "char";
+                        data.cTypeArray = $"[{len + 1}]";
+                        data.cTypeArray0 = "[0]";
+
+                        data.cValue = $"{{{string.Join(", ", chars)}}}";
                         break;
 
                     case DataType.OCTET_STRING:
                         defaultvalue = defaultvalue.Trim();
+                        List<string> bytes = new List<string>();
                         if (defaultvalue == "")
                             valueDefined = false;
                         if (valueDefined || stringLength > 0)
                         {
-                            List<string> bytes = new List<string>();
-                            UInt32 len = 0;
+
 
                             if (valueDefined)
                             {
@@ -939,19 +956,20 @@ OD_t *{0} = &_{0};", odname, string.Join(",\n    ", ODList)));
                                 bytes.Add("0x00");
                             }
 
-                            data.length = len;
-                            data.cType = "uint8_t";
-                            data.cTypeArray = $"[{len}]";
-                            data.cTypeArray0 = "[0]";
+
                             data.cValue = $"{{{string.Join(", ", bytes)}}}";
                         }
+                        data.length = len;
+                        data.cType = "uint8_t";
+                        data.cTypeArray = $"[{len}]";
+                        data.cTypeArray0 = "[0]";
                         break;
                     case DataType.UNICODE_STRING:
                         data.cTypeString = true;
+                        List<string> words = new List<string>();
                         if (valueDefined || stringLength > 0)
                         {
-                            List<string> words = new List<string>();
-                            UInt32 len = 0;
+
 
                             if (valueDefined)
                             {
@@ -969,15 +987,17 @@ OD_t *{0} = &_{0};", odname, string.Join(",\n    ", ODList)));
                                 words.Add("0x0000");
                             }
 
-                            // extra string terminator
-                            words.Add("0x0000");
 
-                            data.length = len * 2;
-                            data.cType = "uint16_t";
-                            data.cTypeArray = $"[{len + 1}]";
-                            data.cTypeArray0 = "[0]";
+
+
                             data.cValue = $"{{{string.Join(", ", words)}}}";
                         }
+                        // extra string terminator
+                        words.Add("0x0000");
+                        data.length = len * 2;
+                        data.cType = "uint16_t";
+                        data.cTypeArray = $"[{len + 1}]";
+                        data.cTypeArray0 = "[0]";
                         break;
 
                     case DataType.INTEGER24:
