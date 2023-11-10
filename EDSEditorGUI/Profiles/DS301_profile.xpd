@@ -769,7 +769,7 @@
             <q1:property name="CO_disabled" value="true" />
             <q1:property name="CO_storageGroup" value="PERSIST_COMM" />
           </q1:parameter>
-          <q1:parameter uniqueID="UID_OBJ_100B" access="readWrite">
+          <q1:parameter uniqueID="UID_OBJ_100C" access="readWrite">
             <description lang="en">The objects at index 100Ch and 100Dh include the guard time in milliseconds and the life time factor.
 
 The life time factor multiplied with the guard time gives the life time for the Life Guarding Protocol. It is
@@ -778,7 +778,7 @@ The life time factor multiplied with the guard time gives the life time for the 
             <UINT />
             <q1:defaultValue value="0" />
           </q1:parameter>
-          <q1:parameter uniqueID="UID_OBJ_100C" access="readWrite">
+          <q1:parameter uniqueID="UID_OBJ_100D" access="readWrite">
             <description lang="en">The life time factor multiplied with the guard time gives the life time for the node guarding protocol. It is
 
 0 if not used.</description>
@@ -2324,8 +2324,8 @@ The life time factor multiplied with the guard time gives the life time for the 
           <CANopenObject index="1008" name="Manufacturer device name" objectType="7" PDOmapping="no" uniqueIDRef="UID_OBJ_1008" />
           <CANopenObject index="1009" name="Manufacturer hardware version" objectType="7" PDOmapping="no" uniqueIDRef="UID_OBJ_1009" />
           <CANopenObject index="100A" name="Manufacturer software version" objectType="7" PDOmapping="no" uniqueIDRef="UID_OBJ_100A" />
-          <CANopenObject index="100B" name="Guard time" objectType="7" PDOmapping="no" uniqueIDRef="UID_OBJ_100B" />
-          <CANopenObject index="100C" name="Life time factor" objectType="7" PDOmapping="no" uniqueIDRef="UID_OBJ_100C" />
+          <CANopenObject index="100C" name="Guard time" objectType="7" PDOmapping="no" uniqueIDRef="UID_OBJ_100C" />
+          <CANopenObject index="100D" name="Life time factor" objectType="7" PDOmapping="no" uniqueIDRef="UID_OBJ_100D" />
           <CANopenObject index="1010" name="Store parameters" objectType="8" uniqueIDRef="UID_OBJ_1010" subNumber="5">
             <CANopenSubObject subIndex="00" name="Highest sub-index supported" objectType="7" PDOmapping="no" uniqueIDRef="UID_SUB_101000" />
             <CANopenSubObject subIndex="01" name="Save all parameters" objectType="7" PDOmapping="no" uniqueIDRef="UID_SUB_101001" />
