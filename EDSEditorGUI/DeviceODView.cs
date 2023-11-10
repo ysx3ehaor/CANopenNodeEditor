@@ -591,7 +591,7 @@ namespace ODEditor
         {
             ListView listview = (ListView)sender;
 
-            if (listview.SelectedItems.Count <= 0 )
+            if (listview.SelectedItems.Count <= 0)
                 return;
 
             ODentry od = (ODentry)listview.SelectedItems[0].Tag;
@@ -633,11 +633,6 @@ namespace ODEditor
         private void ListView_objects_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             ((ListView)sender).SelectedItems.Clear();
-
-            contextMenu_object.Show(Cursor.Position);
-            PopulateObject();
-            PopulateSubList();
-     
             ListView_objects_MouseClick(sender, new MouseEventArgs(MouseButtons.Right, 0, 0, 0, 0));
         }
 

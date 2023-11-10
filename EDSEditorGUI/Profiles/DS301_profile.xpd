@@ -15,7 +15,7 @@
         <ProfileTechnology>CANopen</ProfileTechnology>
       </ISO15745Reference>
     </ProfileHeader>
-    <ProfileBody xmlns:q1="http://www.canopen.org/xml/1.1" xsi:type="q1:ProfileBody_Device_CANopen" formatName="CANopen" formatVersion="1.0" fileName="DS301_profile.xpd" fileCreator="" fileCreationDate="2020-11-23" fileCreationTime="13:00:00.0000000+02:00" fileModifiedBy="" fileModificationDate="2023-10-24" fileModificationTime="08:59:45.6659504+02:00" fileVersion="1" supportedLanguages="en" xmlns="">
+    <ProfileBody xmlns:q1="http://www.canopen.org/xml/1.1" xsi:type="q1:ProfileBody_Device_CANopen" formatName="CANopen" formatVersion="1.0" fileName="DS301_profile.xpd" fileCreator="" fileCreationDate="2020-11-23" fileCreationTime="13:00:00.0000000+02:00" fileModifiedBy="" fileModificationDate="2023-10-24" fileModificationTime="08:51:03.4853761+02:00" fileVersion="1" supportedLanguages="en" xmlns="">
       <q1:DeviceIdentity>
         <q1:vendorName></q1:vendorName>
         <q1:vendorID></q1:vendorID>
@@ -769,7 +769,7 @@
             <q1:property name="CO_disabled" value="true" />
             <q1:property name="CO_storageGroup" value="PERSIST_COMM" />
           </q1:parameter>
-          <q1:parameter uniqueID="UID_OBJ_100C" access="readWrite">
+          <q1:parameter uniqueID="UID_OBJ_100B" access="readWrite">
             <description lang="en">The objects at index 100Ch and 100Dh include the guard time in milliseconds and the life time factor.
 
 The life time factor multiplied with the guard time gives the life time for the Life Guarding Protocol. It is
@@ -778,7 +778,7 @@ The life time factor multiplied with the guard time gives the life time for the 
             <UINT />
             <q1:defaultValue value="0" />
           </q1:parameter>
-          <q1:parameter uniqueID="UID_OBJ_100D" access="readWrite">
+          <q1:parameter uniqueID="UID_OBJ_100C" access="readWrite">
             <description lang="en">The life time factor multiplied with the guard time gives the life time for the node guarding protocol. It is
 
 0 if not used.</description>
@@ -2293,7 +2293,7 @@ The life time factor multiplied with the guard time gives the life time for the 
         <ProfileTechnology>CANopen</ProfileTechnology>
       </ISO15745Reference>
     </ProfileHeader>
-    <ProfileBody xmlns:q2="http://www.canopen.org/xml/1.1" xsi:type="q2:ProfileBody_CommunicationNetwork_CANopen" formatName="CANopen" formatVersion="1.0" fileName="DS301_profile.xpd" fileCreator="" fileCreationDate="2020-11-23" fileCreationTime="13:00:00.0000000+02:00" fileModificationDate="2023-10-24" fileModificationTime="08:59:45.6659504+02:00" fileVersion="1" supportedLanguages="en" xmlns="">
+    <ProfileBody xmlns:q2="http://www.canopen.org/xml/1.1" xsi:type="q2:ProfileBody_CommunicationNetwork_CANopen" formatName="CANopen" formatVersion="1.0" fileName="DS301_profile.xpd" fileCreator="" fileCreationDate="2020-11-23" fileCreationTime="13:00:00.0000000+02:00" fileModificationDate="2023-10-24" fileModificationTime="08:51:03.4853761+02:00" fileVersion="1" supportedLanguages="en" xmlns="">
       <ApplicationLayers>
         <q2:CANopenObjectList>
           <CANopenObject index="1000" name="Device type" objectType="7" PDOmapping="no" uniqueIDRef="UID_OBJ_1000" />
@@ -2324,8 +2324,8 @@ The life time factor multiplied with the guard time gives the life time for the 
           <CANopenObject index="1008" name="Manufacturer device name" objectType="7" PDOmapping="no" uniqueIDRef="UID_OBJ_1008" />
           <CANopenObject index="1009" name="Manufacturer hardware version" objectType="7" PDOmapping="no" uniqueIDRef="UID_OBJ_1009" />
           <CANopenObject index="100A" name="Manufacturer software version" objectType="7" PDOmapping="no" uniqueIDRef="UID_OBJ_100A" />
-          <CANopenObject index="100C" name="Guard time" objectType="7" PDOmapping="no" uniqueIDRef="UID_OBJ_100C" />
-          <CANopenObject index="100D" name="Life time factor" objectType="7" PDOmapping="no" uniqueIDRef="UID_OBJ_100D" />
+          <CANopenObject index="100B" name="Guard time" objectType="7" PDOmapping="no" uniqueIDRef="UID_OBJ_100B" />
+          <CANopenObject index="100C" name="Life time factor" objectType="7" PDOmapping="no" uniqueIDRef="UID_OBJ_100C" />
           <CANopenObject index="1010" name="Store parameters" objectType="8" uniqueIDRef="UID_OBJ_1010" subNumber="5">
             <CANopenSubObject subIndex="00" name="Highest sub-index supported" objectType="7" PDOmapping="no" uniqueIDRef="UID_SUB_101000" />
             <CANopenSubObject subIndex="01" name="Save all parameters" objectType="7" PDOmapping="no" uniqueIDRef="UID_SUB_101001" />
