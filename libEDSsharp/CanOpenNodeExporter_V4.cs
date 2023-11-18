@@ -268,7 +268,7 @@ namespace libEDSsharp
                         attrElem = attr;
                     }
                     else
-                    {// FixIt: There is nothing in the CiA 306 definition for EDS files that justifies these warnings! The EDSchecker from Vector would also check this object as error-free!
+                    {// Following checks are requirement of CANopenNode. Arrays must be C arrays.
                         if (data.cType != dataElem.cType || data.length != dataElem.length)
                             Warnings.AddWarning($"Error in 0x{indexH}: Data type of elements in ARRAY must be equal!", Warnings.warning_class.WARNING_BUILD);
                         if ((data.cValue == null && dataElem.cValue != null) || (data.cValue != null && dataElem.cValue == null))
