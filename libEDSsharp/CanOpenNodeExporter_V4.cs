@@ -350,7 +350,7 @@ namespace libEDSsharp
                 {
                     subODStorage_t.Add($"{data.cType} {subcName}{data.cTypeArray};");
                     subODStorage.Add($".{subcName} = {data.cValue}");
-                    dataPtr = $"&{odname}_{group}.x{varName}.{subcName}{data.cTypeArray0}";
+                dataPtr = $"&{odname}_{group}.x{varName}.{subcName}{data.cTypeArray0}";
                 }
                 ODObjs.Add($"        {{");
                 ODObjs.Add($"            .dataOrig = {dataPtr},");
