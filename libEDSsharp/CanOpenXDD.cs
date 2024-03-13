@@ -1,4 +1,4 @@
-﻿/*
+/*
     This file is part of libEDSsharp.
 
     libEDSsharp is free software: you can redistribute it and/or modify
@@ -1118,7 +1118,7 @@ namespace libEDSsharp
 
                                 subentry.uniqueID = subobj.uniqueIDRef;
 
-                                entry.subobjects.Add(subobj.subIndex[0], subentry);
+                                entry.subobjects.Add(subobj.subIndex[1], subentry);
 
                             }
                         }
