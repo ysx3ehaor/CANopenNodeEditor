@@ -130,22 +130,25 @@ namespace Tests
                 throw new Exception("Mapping paramaters not generated");
             }
 
-            if (comparamOD.subobjects.Count != 3)
+            if (comparamOD.subobjects.Count != 4)
                 throw new Exception("Wrong number of sub objects generated");
 
-            if (comparamOD.Nosubindexes != 3)
+            if (comparamOD.Nosubindexes != 4)
                 throw new Exception("Wrong number of sub objects generated");
 
             if (comparamOD.subobjects[1].datatype != DataType.UNSIGNED32)
                 throw new Exception("Wrong data type for COB");
             if (comparamOD.subobjects[2].datatype != DataType.UNSIGNED8)
                 throw new Exception("Wrong data type for Transmission type");
+            if (comparamOD.subobjects[5].datatype != DataType.UNSIGNED16)
+                throw new Exception("Wrong data type for Transmission type");
      
             if (comparamOD.subobjects[1].defaultvalue != "0x401") //481 hex
                 throw new Exception("TPDO COB wrong");
             if (comparamOD.subobjects[2].defaultvalue != "254")
                 throw new Exception("TPDO transmission type wrong");
-          
+            if (comparamOD.subobjects[5].defaultvalue != "20")
+                throw new Exception("TPDO event timer wrong default value");
         }
 
 
