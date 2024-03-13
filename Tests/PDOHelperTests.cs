@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Xunit;
 using libEDSsharp;
 
@@ -53,10 +53,10 @@ namespace Tests
                 throw new Exception("Mapping paramaters not generated");
             }
 
-            if (comparamOD.subobjects.Count != 7)
+            if (comparamOD.subobjects.Count != 6)
                 throw new Exception("Wrong number of sub objects generated");
 
-            if(comparamOD.Nosubindexes!=7)
+            if(comparamOD.Nosubindexes!=6)
                 throw new Exception("Wrong number of sub objects generated");
 
             if (comparamOD.subobjects[1].datatype != DataType.UNSIGNED32)
@@ -65,8 +65,6 @@ namespace Tests
                 throw new Exception("Wrong data type for Transmission type");
             if (comparamOD.subobjects[3].datatype != DataType.UNSIGNED16)
                 throw new Exception("Wrong data type for Inhibit time");
-            if (comparamOD.subobjects[4].datatype != DataType.UNSIGNED8)
-                throw new Exception("Wrong data type for Compatibility Entry");
             if (comparamOD.subobjects[5].datatype != DataType.UNSIGNED16)
                 throw new Exception("Wrong data type for Event timer");
             if (comparamOD.subobjects[6].datatype != DataType.UNSIGNED8)
