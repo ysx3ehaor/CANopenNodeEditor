@@ -44,7 +44,7 @@ namespace Tests
             subod = new ODentry("Test String 2", 0x01, DataType.VISIBLE_STRING, new string('*', 255), EDSsharp.AccessType.ro, PDOMappingType.optional, od);
             test = export_one_record_type(subod, "");
 
-            if (test != "           {(void*)&CO_OD_RAM.testRecord.testString2, 0x26, 0xFF }," + Environment.NewLine)
+            if (test != "           {(void*)&CO_OD_RAM.testRecord.testString2, 0x36, 0xFF }," + Environment.NewLine)
                 throw (new Exception("export_one_record_type() error test 2"));
 
         }
