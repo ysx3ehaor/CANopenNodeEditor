@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Xunit;
 using libEDSsharp;
 
@@ -151,7 +151,7 @@ namespace Tests
             od.subobjects.Add(0x03, new ODentry("LINE1", 0x03, DataType.UNSIGNED32, "0x01", EDSsharp.AccessType.ro, PDOMappingType.optional));
 
             test = write_od_line(od);
-            if (test != "{0x1003, 0x03, 0x06,  0, (void*)&CO_OD_RAM.testArray[0]}," + Environment.NewLine)
+            if (test != "{0x1003, 0x03, 0x0E,  0, (void*)&CO_OD_RAM.testArray[0]}," + Environment.NewLine)
                 throw (new Exception("TestArrayNoEntries() failed"));
 
 
