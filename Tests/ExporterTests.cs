@@ -78,7 +78,7 @@ namespace Tests
 
             string test = print_h_entry(od);
 
-            if (test != "/*2000      */ VISIBLE_STRING  testArray[32][4];" + Environment.NewLine)
+            if (test != "/*2000      */ VISIBLE_STRING  testArray[4][32];" + Environment.NewLine)
                 throw (new Exception("TestArrays() test 1 failed"));
 
 
