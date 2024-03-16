@@ -16,6 +16,10 @@ jobs:
       uses: actions/checkout@v3
     - name: Setup .NET
       uses: microsoft/setup-msbuild@v1.1
+    - name: C# problem matcher
+      run: |
+        Invoke-WebRequest "https://raw.githubusercontent.com/actions/setup-dotnet/main/.github/csc.json" -OutFile "csc.json"
+        echo "::add-matcher::csc.json"
 #      uses: actions/setup-dotnet@v2
 #      with:
 #        dotnet-version: 5.0.x
