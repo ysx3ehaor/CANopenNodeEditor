@@ -16,12 +16,14 @@ This is the `main` branch with sources. For binaries see the `build` branch or d
 
 ----
 
-This project went upstream and became a part of CanOpenNode!
+Join us on slack
+--------
 
-please see https://github.com/CANopenNode/CANopenEditor for the latest version
+https://join.slack.com/t/canopennode/shared_invite/zt-ghjhfg12-qGQNWvSEmhqcSedhFaLpuA
+(Invite expires 12th Sep 2020) if the link expires before i push this page please ping me (robin.cornelius@gmail.com)
 
-
-
+I'm hoping to build a community with canopennode and related tools at the above address. There are channels for this project already
+so if you use this tool, or just canopennode please join.
 
 EDSSharp
 --------
