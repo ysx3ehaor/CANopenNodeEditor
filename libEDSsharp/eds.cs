@@ -27,7 +27,6 @@ using System.Reflection;
 using CanOpenXSD_1_1;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography;
-using Xml2CSharp;
 
 namespace libEDSsharp
 {
