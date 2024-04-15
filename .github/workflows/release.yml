@@ -14,7 +14,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
     - name: Setup .NET
-      uses: microsoft/setup-msbuild@v1.3
+      uses: microsoft/setup-msbuild@v2
     - name: Add Packages
       run: |
         dotnet restore

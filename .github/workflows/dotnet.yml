@@ -19,7 +19,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
     - name: Setup .NET
-      uses: microsoft/setup-msbuild@v1.3
+      uses: microsoft/setup-msbuild@v2
     - name: C# problem matcher
       run: |
         Invoke-WebRequest "https://raw.githubusercontent.com/actions/setup-dotnet/main/.github/csc.json" -OutFile "csc.json"
