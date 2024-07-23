@@ -12,7 +12,6 @@ namespace EDSSharp
     {
 
         static libEDSsharp.EDSsharp eds = new EDSsharp();
-        static string gitversion = "";
 
         static void Main(string[] args)
         {
@@ -103,7 +102,7 @@ namespace EDSSharp
             IExporter exporter = ExporterFactory.getExporter(type);
             var filepath = Path.Combine(savePath, Path.GetFileNameWithoutExtension(outpath));
 
-            exporter.export(filepath, gitversion, eds);
+            exporter.export(filepath, eds);
 
             foreach(string warning in Warnings.warning_list)
             {
