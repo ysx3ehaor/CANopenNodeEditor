@@ -786,7 +786,7 @@ namespace libEDSsharp
                             productID = ApplicationLayers.identity.productID.Value;
                         }
 
-                        if (ApplicationLayers.identity.buildDate != null)
+                        if (ApplicationLayers.identity.buildDate != default)
                         {
                             buildDate = ApplicationLayers.identity.buildDate;
                         }
