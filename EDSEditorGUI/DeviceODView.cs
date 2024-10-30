@@ -531,9 +531,13 @@ namespace ODEditor
                 {
                     od.prop.CO_accessSRDO = AccessSRDO.no;
                 }
+                for (ushort i = 1; i < od.parent.Nosubindexes; i++) {
+                    if (od.parent.subobjects[i].defaultvalue == "") {
+                        od.parent.subobjects[i].defaultvalue = textBox_defaultValue.Text;
+                    }
+                }
 
-                od.defaultvalue = textBox_defaultValue.Text;
-                od.actualvalue = textBox_actualValue.Text;
+               //  od.actualvalue = textBox_actualValue.Text;
                 od.HighLimit = textBox_highLimit.Text;
                 od.LowLimit = textBox_lowLimit.Text;
 
