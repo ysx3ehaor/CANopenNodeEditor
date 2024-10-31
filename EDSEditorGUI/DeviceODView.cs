@@ -532,12 +532,29 @@ namespace ODEditor
                     od.prop.CO_accessSRDO = AccessSRDO.no;
                 }
 
-                for (ushort i = 1; i < od.parent.Nosubindexes; i++)
+                // Default value
+                bool setDefaultValueToAll = false;
+                if (od.parent != null && od.Subindex > 0 && od.defaultvalue == "" && textBox_defaultValue.Text != "")
                 {
-                    if (od.parent.subobjects[i].defaultvalue == "")
+                    DialogResult confirm = MessageBox.Show("Do you want to apply Default value to all unset subobjects?", MessageBoxButtons.YesNo);
+                    if (confirm == DialogResult.Yes)
                     {
-                        od.parent.subobjects[i].defaultvalue = textBox_defaultValue.Text;
+                        setDefaultValueToAll = true;
                     }
+                }
+                if (setDefaultValueToAll)
+                {
+                    for (ushort i = 1; i < od.parent.Nosubindexes; i++)
+                    {
+                        if (od.parent.subobjects[i].defaultvalue == "")
+                        {
+                            od.parent.subobjects[i].defaultvalue = textBox_defaultValue.Text;
+                        }
+                    }
+                }
+                else
+                {
+                    od.defaultvalue = textBox_defaultValue.Text;
                 }
 
                 od.actualvalue = textBox_actualValue.Text;
