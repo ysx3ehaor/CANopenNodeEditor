@@ -536,7 +536,7 @@ namespace ODEditor
                 bool setDefaultValueToAll = false;
                 if (od.parent != null && od.Subindex > 0 && od.defaultvalue == "" && textBox_defaultValue.Text != "")
                 {
-                    DialogResult confirm = MessageBox.Show("Do you want to apply Default value to all unset subobjects?", MessageBoxButtons.YesNo);
+                    DialogResult confirm = MessageBox.Show("Do you want to set the Default value to all unset default values in subobjects?", "Set to all?", MessageBoxButtons.YesNo);
                     if (confirm == DialogResult.Yes)
                     {
                         setDefaultValueToAll = true;
