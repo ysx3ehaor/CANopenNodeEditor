@@ -534,22 +534,29 @@ namespace ODEditor
 
                 // Default value
                 bool setDefaultValueToAll = false;
-                if (od.parent != null && od.Subindex > 0 && od.defaultvalue == "" && textBox_defaultValue.Text != "")
+                bool identicalDefaultValues = true;
+                string oldDefaultValue = "";
+                if (od.parent != null && od.Subindex > 1)
                 {
-                    DialogResult confirm = MessageBox.Show("Do you want to set the Default value to all unset default values in subobjects?", "Set to all?", MessageBoxButtons.YesNo);
-                    if (confirm == DialogResult.Yes)
+
+                    for (int i = 2; i < od.parent.Nosubindexes; i++)
                     {
-                        setDefaultValueToAll = true;
+                        identicalDefaultValues &= (od.parent.subobjects[(ushort)i].defaultvalue == od.parent.subobjects[(ushort)(i - 1)].defaultvalue);
+                    }
+
+                    if (identicalDefaultValues) {
+                        DialogResult confirm = MessageBox.Show("Do you want to set all identical default values in subobjects to this default value?", "Set to all?", MessageBoxButtons.YesNo);
+                        if (confirm == DialogResult.Yes)
+                        {
+                            setDefaultValueToAll = true;
+                        }
                     }
                 }
                 if (setDefaultValueToAll)
                 {
                     for (ushort i = 1; i < od.parent.Nosubindexes; i++)
                     {
-                        if (od.parent.subobjects[i].defaultvalue == "")
-                        {
                             od.parent.subobjects[i].defaultvalue = textBox_defaultValue.Text;
-                        }
                     }
                 }
                 else
