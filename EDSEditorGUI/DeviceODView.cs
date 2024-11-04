@@ -533,26 +533,34 @@ namespace ODEditor
                 }
 
                 // Default value
+                if (listView_subObjects.SelectedItems.Count > 1) {
+                    for (ushort i = 0; i < listView_subObjects.SelectedItems.Count; i++)
+                    {
+                        od.parent.subobjects[(ushort) Convert.ToInt32(listView_subObjects.SelectedItems[i].Text,16)].defaultvalue = textBox_defaultValue.Text;
+                    }
+                }
+
+
                 bool setDefaultValueToAll = false;
                 bool identicalDefaultValues = true;
-                string oldDefaultValue = "";
-                if (od.parent != null && od.Subindex > 1)
+
+                if (od.parent != null && od.parent.Nosubindexes > 2)
                 {
 
                     for (int i = 2; i < od.parent.Nosubindexes; i++)
                     {
                         identicalDefaultValues &= (od.parent.subobjects[(ushort)i].defaultvalue == od.parent.subobjects[(ushort)(i - 1)].defaultvalue);
                     }
-
+                        
                     if (identicalDefaultValues) {
-                        DialogResult confirm = MessageBox.Show("Do you want to set all identical default values in subobjects to this default value?", "Set to all?", MessageBoxButtons.YesNo);
+                            DialogResult confirm = MessageBox.Show("Do you want to set all identical default values in subobjects to this default value?", "Set to all?", MessageBoxButtons.YesNo);
                         if (confirm == DialogResult.Yes)
                         {
                             setDefaultValueToAll = true;
                         }
                     }
                 }
-                if (setDefaultValueToAll)
+                        if (setDefaultValueToAll)
                 {
                     for (ushort i = 1; i < od.parent.Nosubindexes; i++)
                     {
