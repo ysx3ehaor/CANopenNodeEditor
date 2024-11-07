@@ -543,13 +543,17 @@ namespace ODEditor
 
                 bool setDefaultValueToAll = false;
                 bool identicalDefaultValues = true;
-
+                string lastdefaultvalue;
                 if (od.parent != null && od.parent.Nosubindexes > 2)
                 {
-
-                    for (int i = 2; i < od.parent.Nosubindexes; i++)
+                    lastdefaultvalue = od.parent.subobjects[1].defaultvalue;
+                    foreach (ODentry subod in od.parent.subobjects.Values)
                     {
-                        identicalDefaultValues &= ((od.parent.subobjects[(ushort)i].defaultvalue == od.parent.subobjects[(ushort)(i - 1)].defaultvalue) && (od.parent.subobjects[(ushort)i].defaultvalue != textBox_defaultValue.Text));
+                        if (subod.Subindex > 0)
+                        {
+                           identicalDefaultValues &= (subod.defaultvalue ==  lastdefaultvalue)&& (subod.defaultvalue != textBox_defaultValue.Text);
+                           lastdefaultvalue = subod.defaultvalue;
+                        }
                     }
                         
                     if (identicalDefaultValues) {
