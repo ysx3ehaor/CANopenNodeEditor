@@ -549,7 +549,7 @@ namespace ODEditor
 
                     for (int i = 2; i < od.parent.Nosubindexes; i++)
                     {
-                        identicalDefaultValues &= (od.parent.subobjects[(ushort)i].defaultvalue == od.parent.subobjects[(ushort)(i - 1)].defaultvalue);
+                        identicalDefaultValues &= ((od.parent.subobjects[(ushort)i].defaultvalue == od.parent.subobjects[(ushort)(i - 1)].defaultvalue) && (od.parent.subobjects[(ushort)i].defaultvalue != textBox_defaultValue.Text));
                     }
                         
                     if (identicalDefaultValues) {
