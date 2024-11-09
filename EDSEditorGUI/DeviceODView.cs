@@ -532,7 +532,50 @@ namespace ODEditor
                     od.prop.CO_accessSRDO = AccessSRDO.no;
                 }
 
-                od.defaultvalue = textBox_defaultValue.Text;
+                // Default value
+                if (listView_subObjects.SelectedItems.Count > 1) {
+                    for (ushort i = 0; i < listView_subObjects.SelectedItems.Count; i++)
+                    {
+                        od.parent.subobjects[(ushort) Convert.ToInt32(listView_subObjects.SelectedItems[i].Text,16)].defaultvalue = textBox_defaultValue.Text;
+                    }
+                }
+
+
+                bool setDefaultValueToAll = false;
+                bool identicalDefaultValues = true;
+                string lastdefaultvalue;
+                if (od.parent != null && od.parent.Nosubindexes > 2)
+                {
+                    lastdefaultvalue = od.parent.subobjects[1].defaultvalue;
+                    foreach (ODentry subod in od.parent.subobjects.Values)
+                    {
+                        if (subod.Subindex > 0)
+                        {
+                           identicalDefaultValues &= (subod.defaultvalue ==  lastdefaultvalue)&& (subod.defaultvalue != textBox_defaultValue.Text);
+                           lastdefaultvalue = subod.defaultvalue;
+                        }
+                    }
+                        
+                    if (identicalDefaultValues) {
+                            DialogResult confirm = MessageBox.Show("Do you want to set all identical default values in subobjects to this default value?", "Set to all?", MessageBoxButtons.YesNo);
+                        if (confirm == DialogResult.Yes)
+                        {
+                            setDefaultValueToAll = true;
+                        }
+                    }
+                }
+                        if (setDefaultValueToAll)
+                {
+                    for (ushort i = 1; i < od.parent.Nosubindexes; i++)
+                    {
+                            od.parent.subobjects[i].defaultvalue = textBox_defaultValue.Text;
+                    }
+                }
+                else
+                {
+                    od.defaultvalue = textBox_defaultValue.Text;
+                }
+
                 od.actualvalue = textBox_actualValue.Text;
                 od.HighLimit = textBox_highLimit.Text;
                 od.LowLimit = textBox_lowLimit.Text;

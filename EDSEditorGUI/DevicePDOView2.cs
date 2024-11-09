@@ -460,7 +460,12 @@ namespace ODEditor
                 int ordinal = 0;
                 foreach (ODentry entry in slot.Mapping)
                 {
+                    if ((bitoff + entry.Sizeofdatatype()) > 64)
                     {
+                       string toDisplay = string.Join(Environment.NewLine, slot.Mapping);
+                       MessageBox.Show(string.Format("Invalid TXPDO mapping parameters in 0x{0:X}!\r\nTrying to map more than the maximum lenght of a CAN message (8 bytes).\r\n\r\nMembers are:\r\n{1}", slot.ConfigurationIndex,toDisplay));
+                        break;
+                    }
                         string target = slot.getTargetName(entry);
                         grid1[row + 2, bitoff + 3] = new SourceGrid.Cells.Cell(target, comboStandard);
                         grid1[row + 2, bitoff + 3].ColumnSpan = entry.Sizeofdatatype();
@@ -480,14 +485,9 @@ namespace ODEditor
 
                         grid1[row + 2, bitoff + 3].AddController(vcc);
                         bitoff += entry.Sizeofdatatype();
-                    }
+
 
                     ordinal++;
-
-                    if (bitoff > 64) {
-                        MessageBox.Show(string.Format("Invalid TXPDO mapping parameters in 0x{0:X}. Trying to map more than 64 bit (8 Bytes). CAN message maximum lenght is 8 Byte", slot.ConfigurationIndex));
-                        break;
-                    }
 
                 }
 
