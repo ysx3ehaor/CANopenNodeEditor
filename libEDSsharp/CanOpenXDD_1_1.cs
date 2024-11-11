@@ -229,11 +229,11 @@ namespace libEDSsharp
             {
                 var parserConfig = new JsonParser.Settings(100);
                 var parser = new JsonParser(parserConfig);
-                devCanOpen = parser.Parse<CanOpenDevice>(File.ReadAllText(file));
+                devCanOpen = parser.Parse<CanOpenDevice>(System.IO.File.ReadAllText(file));
             }
             else
             {
-                using (var input = File.OpenRead(file))
+                using (var input = System.IO.File.OpenRead(file))
                 {
                     devCanOpen = CanOpenDevice.Parser.ParseFrom(input);
                 }
@@ -263,11 +263,11 @@ namespace libEDSsharp
                 var formatterConfig = new JsonFormatter.Settings(true).WithIndentation().WithFormatDefaultValues(true);
                 var formatter = new JsonFormatter(formatterConfig);
                 var rawJsonString = formatter.Format(dev);
-                File.WriteAllText(file, rawJsonString);
+                System.IO.File.WriteAllText(file, rawJsonString);
             }
             else
             {
-                using (var output = File.Create(file))
+                using (var output = System.IO.File.Create(file))
                 {
                     dev.WriteTo(output);
                 }
