@@ -66,12 +66,11 @@ namespace ODEditor
 
         private void InitializeComponent()
         {
-
-
             this.SuspendLayout();
             // 
             // MyTabUserControl
             // 
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "MyTabUserControl";
             this.Size = new System.Drawing.Size(357, 262);
             this.ResumeLayout(false);

@@ -43,9 +43,10 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 54);
+            this.label2.Location = new System.Drawing.Point(14, 62);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(290, 13);
+            this.label2.Size = new System.Drawing.Size(328, 15);
             this.label2.TabIndex = 4;
             this.label2.Text = "Index Offset (single or space separated list for multiple insert)";
             // 
@@ -53,9 +54,10 @@
             // 
             this.textBox_offsets.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_offsets.Location = new System.Drawing.Point(12, 70);
+            this.textBox_offsets.Location = new System.Drawing.Point(14, 81);
+            this.textBox_offsets.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox_offsets.Name = "textBox_offsets";
-            this.textBox_offsets.Size = new System.Drawing.Size(432, 20);
+            this.textBox_offsets.Size = new System.Drawing.Size(503, 23);
             this.textBox_offsets.TabIndex = 2;
             this.textBox_offsets.Text = "1";
             this.textBox_offsets.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox_offsets_KeyPress);
@@ -64,9 +66,10 @@
             // button_insert
             // 
             this.button_insert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_insert.Location = new System.Drawing.Point(154, 401);
+            this.button_insert.Location = new System.Drawing.Point(180, 462);
+            this.button_insert.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button_insert.Name = "button_insert";
-            this.button_insert.Size = new System.Drawing.Size(130, 37);
+            this.button_insert.Size = new System.Drawing.Size(152, 42);
             this.button_insert.TabIndex = 6;
             this.button_insert.Text = "Insert";
             this.button_insert.UseVisualStyleBackColor = true;
@@ -75,9 +78,10 @@
             // button_cancel
             // 
             this.button_cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_cancel.Location = new System.Drawing.Point(314, 401);
+            this.button_cancel.Location = new System.Drawing.Point(366, 462);
+            this.button_cancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button_cancel.Name = "button_cancel";
-            this.button_cancel.Size = new System.Drawing.Size(130, 37);
+            this.button_cancel.Size = new System.Drawing.Size(152, 42);
             this.button_cancel.TabIndex = 7;
             this.button_cancel.Text = "Cancel";
             this.button_cancel.UseVisualStyleBackColor = true;
@@ -94,9 +98,10 @@
             this.dataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
-            this.dataGridView.Location = new System.Drawing.Point(12, 96);
+            this.dataGridView.Location = new System.Drawing.Point(14, 111);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(432, 294);
+            this.dataGridView.Size = new System.Drawing.Size(504, 339);
             this.dataGridView.TabIndex = 10;
             this.dataGridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_ColumnHeaderMouseClick);
             this.dataGridView.Leave += new System.EventHandler(this.DataGridView_Leave);
@@ -104,9 +109,10 @@
             // button_uncheck
             // 
             this.button_uncheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button_uncheck.Location = new System.Drawing.Point(12, 401);
+            this.button_uncheck.Location = new System.Drawing.Point(14, 462);
+            this.button_uncheck.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button_uncheck.Name = "button_uncheck";
-            this.button_uncheck.Size = new System.Drawing.Size(130, 37);
+            this.button_uncheck.Size = new System.Drawing.Size(152, 42);
             this.button_uncheck.TabIndex = 11;
             this.button_uncheck.Text = "Uncheck all";
             this.button_uncheck.UseVisualStyleBackColor = true;
@@ -115,26 +121,28 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(14, 10);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
+            this.label1.Size = new System.Drawing.Size(40, 15);
             this.label1.TabIndex = 12;
             this.label1.Text = "Target";
             // 
             // cbox_Target
             // 
             this.cbox_Target.FormattingEnabled = true;
-            this.cbox_Target.Location = new System.Drawing.Point(12, 25);
+            this.cbox_Target.Location = new System.Drawing.Point(14, 29);
+            this.cbox_Target.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbox_Target.Name = "cbox_Target";
-            this.cbox_Target.Size = new System.Drawing.Size(432, 21);
+            this.cbox_Target.Size = new System.Drawing.Size(503, 23);
             this.cbox_Target.TabIndex = 13;
             this.cbox_Target.SelectedIndexChanged += new System.EventHandler(this.cbox_Target_SelectedIndexChanged);
             // 
             // InsertObjects
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(456, 450);
+            this.ClientSize = new System.Drawing.Size(532, 519);
             this.Controls.Add(this.cbox_Target);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button_uncheck);
@@ -143,7 +151,9 @@
             this.Controls.Add(this.button_insert);
             this.Controls.Add(this.textBox_offsets);
             this.Controls.Add(this.label2);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "InsertObjects";
             this.Text = "Insert OD Objects";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();

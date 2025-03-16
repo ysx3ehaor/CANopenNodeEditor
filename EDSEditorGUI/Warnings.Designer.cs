@@ -46,13 +46,14 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(1580, 589);
+            this.textBox1.Size = new System.Drawing.Size(1382, 551);
             this.textBox1.TabIndex = 0;
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -63,15 +64,16 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.button_close);
-            this.splitContainer1.Size = new System.Drawing.Size(1580, 667);
-            this.splitContainer1.SplitterDistance = 589;
+            this.splitContainer1.Size = new System.Drawing.Size(1382, 625);
+            this.splitContainer1.SplitterDistance = 551;
             this.splitContainer1.TabIndex = 1;
             // 
             // button_close
             // 
-            this.button_close.Location = new System.Drawing.Point(29, 21);
+            this.button_close.Location = new System.Drawing.Point(26, 20);
+            this.button_close.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button_close.Name = "button_close";
-            this.button_close.Size = new System.Drawing.Size(119, 41);
+            this.button_close.Size = new System.Drawing.Size(104, 39);
             this.button_close.TabIndex = 0;
             this.button_close.Text = "Close";
             this.button_close.UseVisualStyleBackColor = true;
@@ -79,10 +81,11 @@
             // 
             // WarningsFrm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1580, 667);
+            this.ClientSize = new System.Drawing.Size(1382, 625);
             this.Controls.Add(this.splitContainer1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "WarningsFrm";

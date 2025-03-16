@@ -48,18 +48,20 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 12);
+            this.label1.Location = new System.Drawing.Point(20, 14);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(113, 13);
+            this.label1.Size = new System.Drawing.Size(127, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "Nr Supported Modules";
             // 
             // textBox_nrsupportedmodules
             // 
-            this.textBox_nrsupportedmodules.Location = new System.Drawing.Point(136, 9);
+            this.textBox_nrsupportedmodules.Location = new System.Drawing.Point(159, 10);
+            this.textBox_nrsupportedmodules.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox_nrsupportedmodules.Name = "textBox_nrsupportedmodules";
             this.textBox_nrsupportedmodules.ReadOnly = true;
-            this.textBox_nrsupportedmodules.Size = new System.Drawing.Size(93, 20);
+            this.textBox_nrsupportedmodules.Size = new System.Drawing.Size(108, 23);
             this.textBox_nrsupportedmodules.TabIndex = 1;
             // 
             // listView_modules
@@ -71,9 +73,11 @@
             this.columnHeader4,
             this.columnHeader5});
             this.listView_modules.FullRowSelect = true;
-            this.listView_modules.Location = new System.Drawing.Point(20, 49);
+            this.listView_modules.HideSelection = false;
+            this.listView_modules.Location = new System.Drawing.Point(23, 56);
+            this.listView_modules.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listView_modules.Name = "listView_modules";
-            this.listView_modules.Size = new System.Drawing.Size(779, 209);
+            this.listView_modules.Size = new System.Drawing.Size(908, 240);
             this.listView_modules.TabIndex = 2;
             this.listView_modules.UseCompatibleStateImageBehavior = false;
             this.listView_modules.View = System.Windows.Forms.View.Details;
@@ -106,9 +110,11 @@
             this.listView_extends.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader6,
             this.columnHeader7});
-            this.listView_extends.Location = new System.Drawing.Point(20, 400);
+            this.listView_extends.HideSelection = false;
+            this.listView_extends.Location = new System.Drawing.Point(23, 461);
+            this.listView_extends.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listView_extends.Name = "listView_extends";
-            this.listView_extends.Size = new System.Drawing.Size(604, 140);
+            this.listView_extends.Size = new System.Drawing.Size(704, 162);
             this.listView_extends.TabIndex = 3;
             this.listView_extends.UseCompatibleStateImageBehavior = false;
             this.listView_extends.View = System.Windows.Forms.View.Details;
@@ -126,43 +132,47 @@
             // textBox_modulecomments
             // 
             this.textBox_modulecomments.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.textBox_modulecomments.Location = new System.Drawing.Point(20, 282);
+            this.textBox_modulecomments.Location = new System.Drawing.Point(23, 325);
+            this.textBox_modulecomments.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox_modulecomments.Multiline = true;
             this.textBox_modulecomments.Name = "textBox_modulecomments";
             this.textBox_modulecomments.ReadOnly = true;
-            this.textBox_modulecomments.Size = new System.Drawing.Size(779, 98);
+            this.textBox_modulecomments.Size = new System.Drawing.Size(908, 113);
             this.textBox_modulecomments.TabIndex = 4;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 33);
+            this.label2.Location = new System.Drawing.Point(20, 38);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 13);
+            this.label2.Size = new System.Drawing.Size(88, 15);
             this.label2.TabIndex = 5;
             this.label2.Text = "List of modules";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 266);
+            this.label3.Location = new System.Drawing.Point(20, 308);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(93, 13);
+            this.label3.Size = new System.Drawing.Size(108, 15);
             this.label3.TabIndex = 6;
             this.label3.Text = "Module comments";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(17, 384);
+            this.label4.Location = new System.Drawing.Point(20, 442);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(79, 13);
+            this.label4.Size = new System.Drawing.Size(89, 15);
             this.label4.TabIndex = 7;
             this.label4.Text = "Module objects";
             // 
             // ModuleInfo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -172,8 +182,10 @@
             this.Controls.Add(this.listView_modules);
             this.Controls.Add(this.textBox_nrsupportedmodules);
             this.Controls.Add(this.label1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ModuleInfo";
-            this.Size = new System.Drawing.Size(921, 558);
+            this.Size = new System.Drawing.Size(1074, 644);
             this.ResumeLayout(false);
             this.PerformLayout();
 

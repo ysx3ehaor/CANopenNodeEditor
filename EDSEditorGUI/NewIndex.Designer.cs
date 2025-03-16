@@ -49,9 +49,10 @@ namespace ODEditor
             // 
             this.radioButton_var.AutoSize = true;
             this.radioButton_var.Checked = true;
-            this.radioButton_var.Location = new System.Drawing.Point(6, 19);
+            this.radioButton_var.Location = new System.Drawing.Point(7, 22);
+            this.radioButton_var.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radioButton_var.Name = "radioButton_var";
-            this.radioButton_var.Size = new System.Drawing.Size(47, 17);
+            this.radioButton_var.Size = new System.Drawing.Size(46, 19);
             this.radioButton_var.TabIndex = 0;
             this.radioButton_var.TabStop = true;
             this.radioButton_var.Text = "VAR";
@@ -62,9 +63,11 @@ namespace ODEditor
             this.groupBox1.Controls.Add(this.radioButton_record);
             this.groupBox1.Controls.Add(this.radioButton_array);
             this.groupBox1.Controls.Add(this.radioButton_var);
-            this.groupBox1.Location = new System.Drawing.Point(23, 91);
+            this.groupBox1.Location = new System.Drawing.Point(27, 105);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(146, 92);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(170, 106);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Object Type";
@@ -72,9 +75,10 @@ namespace ODEditor
             // radioButton_record
             // 
             this.radioButton_record.AutoSize = true;
-            this.radioButton_record.Location = new System.Drawing.Point(6, 65);
+            this.radioButton_record.Location = new System.Drawing.Point(7, 75);
+            this.radioButton_record.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radioButton_record.Name = "radioButton_record";
-            this.radioButton_record.Size = new System.Drawing.Size(71, 17);
+            this.radioButton_record.Size = new System.Drawing.Size(70, 19);
             this.radioButton_record.TabIndex = 2;
             this.radioButton_record.Text = "RECORD";
             this.radioButton_record.UseVisualStyleBackColor = true;
@@ -82,9 +86,10 @@ namespace ODEditor
             // radioButton_array
             // 
             this.radioButton_array.AutoSize = true;
-            this.radioButton_array.Location = new System.Drawing.Point(6, 42);
+            this.radioButton_array.Location = new System.Drawing.Point(7, 49);
+            this.radioButton_array.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radioButton_array.Name = "radioButton_array";
-            this.radioButton_array.Size = new System.Drawing.Size(62, 17);
+            this.radioButton_array.Size = new System.Drawing.Size(61, 19);
             this.radioButton_array.TabIndex = 1;
             this.radioButton_array.Text = "ARRAY";
             this.radioButton_array.UseVisualStyleBackColor = true;
@@ -92,7 +97,8 @@ namespace ODEditor
             // numericUpDown_index
             // 
             this.numericUpDown_index.Hexadecimal = true;
-            this.numericUpDown_index.Location = new System.Drawing.Point(85, 21);
+            this.numericUpDown_index.Location = new System.Drawing.Point(99, 24);
+            this.numericUpDown_index.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.numericUpDown_index.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -104,7 +110,7 @@ namespace ODEditor
             0,
             0});
             this.numericUpDown_index.Name = "numericUpDown_index";
-            this.numericUpDown_index.Size = new System.Drawing.Size(101, 20);
+            this.numericUpDown_index.Size = new System.Drawing.Size(118, 23);
             this.numericUpDown_index.TabIndex = 1;
             this.numericUpDown_index.Value = new decimal(new int[] {
             8192,
@@ -115,34 +121,38 @@ namespace ODEditor
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 23);
+            this.label1.Location = new System.Drawing.Point(23, 26);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 13);
+            this.label1.Size = new System.Drawing.Size(64, 15);
             this.label1.TabIndex = 3;
             this.label1.Text = "Index (hex)";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 57);
+            this.label2.Location = new System.Drawing.Point(23, 66);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.Size = new System.Drawing.Size(39, 15);
             this.label2.TabIndex = 4;
             this.label2.Text = "Name";
             // 
             // textBox_name
             // 
-            this.textBox_name.Location = new System.Drawing.Point(85, 54);
+            this.textBox_name.Location = new System.Drawing.Point(99, 62);
+            this.textBox_name.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox_name.Name = "textBox_name";
-            this.textBox_name.Size = new System.Drawing.Size(241, 20);
+            this.textBox_name.Size = new System.Drawing.Size(280, 23);
             this.textBox_name.TabIndex = 2;
             this.textBox_name.Text = "New Object";
             // 
             // button_create
             // 
-            this.button_create.Location = new System.Drawing.Point(23, 204);
+            this.button_create.Location = new System.Drawing.Point(27, 235);
+            this.button_create.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button_create.Name = "button_create";
-            this.button_create.Size = new System.Drawing.Size(108, 37);
+            this.button_create.Size = new System.Drawing.Size(126, 42);
             this.button_create.TabIndex = 6;
             this.button_create.Text = "Create";
             this.button_create.UseVisualStyleBackColor = true;
@@ -150,9 +160,10 @@ namespace ODEditor
             // 
             // button_cancel
             // 
-            this.button_cancel.Location = new System.Drawing.Point(180, 204);
+            this.button_cancel.Location = new System.Drawing.Point(210, 235);
+            this.button_cancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button_cancel.Name = "button_cancel";
-            this.button_cancel.Size = new System.Drawing.Size(108, 37);
+            this.button_cancel.Size = new System.Drawing.Size(126, 42);
             this.button_cancel.TabIndex = 7;
             this.button_cancel.Text = "Cancel";
             this.button_cancel.UseVisualStyleBackColor = true;
@@ -160,9 +171,9 @@ namespace ODEditor
             // 
             // NewIndex
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(345, 267);
+            this.ClientSize = new System.Drawing.Size(402, 308);
             this.Controls.Add(this.button_cancel);
             this.Controls.Add(this.button_create);
             this.Controls.Add(this.textBox_name);
@@ -170,7 +181,9 @@ namespace ODEditor
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numericUpDown_index);
             this.Controls.Add(this.groupBox1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "NewIndex";
             this.Text = "Create new OD Index";
             this.groupBox1.ResumeLayout(false);
