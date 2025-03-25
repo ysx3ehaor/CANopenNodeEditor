@@ -876,16 +876,14 @@ namespace ODEditor
             this.contextMenu_object_addNewObjectToolStripMenuItem.Click += new System.EventHandler(this.ContextMenu_object_clone_ToolStripMenuItem_Click);
             // 
             // addToolStripMenuItem
-            // 
-            this.addToolStripMenuItem.Image = global::ODEditor.Properties.Resources.action_add_16xLG;
+            //
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
             this.addToolStripMenuItem.Size = new System.Drawing.Size(120, 26);
             this.addToolStripMenuItem.Text = "Add...";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.ContextMenu_object_add_ToolStripMenuItem_Click);
             // 
             // contextMenu_object_deleteObjectToolStripMenuItem
-            // 
-            this.contextMenu_object_deleteObjectToolStripMenuItem.Image = global::ODEditor.Properties.Resources.Remove_16xLG;
+            //
             this.contextMenu_object_deleteObjectToolStripMenuItem.Name = "contextMenu_object_deleteObjectToolStripMenuItem";
             this.contextMenu_object_deleteObjectToolStripMenuItem.Size = new System.Drawing.Size(120, 26);
             this.contextMenu_object_deleteObjectToolStripMenuItem.Text = "&Delete...";
